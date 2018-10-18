@@ -9,36 +9,45 @@
         class="btn btn-primary"
       >Поиск фильмов</button>
     </form>
-
-    <ul
-      v-if="movies && movies.length"
-      class="List"
+    <div
+      v-infinite-scroll="loadMore"
+      infinite-scroll-disabled="busy"
+      infinite-scroll-distance="10"
     >
-      <li
-        v-for="(movie, index) in movies"
-        :key="index"
-        class="Card"
+      <ul
+        v-if="movies && movies.length"
+        class="List"
       >
-        <img
-          :src="`https://image.tmdb.org/t/p/w200${movie.poster_path}`"
-          alt=""
+        <li
+          v-for="(movie, index) in movies"
+          :key="index"
+          class="Card"
         >
-        <p>{{ movie.title }}</p>
-        <h5>
-          Release date:
-          <span>{{ movie.release_date.slice(0, -6) }}</span>
-        </h5>
-        <div>{{ movie.vote_average }}</div>
-      </li>
-    </ul>
-
+          <img
+            :src="`https://image.tmdb.org/t/p/w200${movie.poster_path}`"
+            alt=""
+          >
+          <p>{{ movie.title }}</p>
+          <h5>
+            Release date:
+            <span>{{ movie.release_date.slice(0, -6) }}</span>
+          </h5>
+          <div>{{ movie.vote_average }}</div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
+import Vue from 'vue';
+import infiniteScroll from 'vue-infinite-scroll';
 import blogPost from './Component.vue';
 // import searchForm from './SearchForm.vue';
 import { fetchMovies, searchMovie } from './api/movies-api';
+
+Vue.use(infiniteScroll);
+let page = 1;
 
 export default {
   name: 'App',
@@ -50,6 +59,7 @@ export default {
     return {
       searchQuery: '',
       movies: [],
+      busy: false,
     };
   },
   created() {
@@ -58,6 +68,15 @@ export default {
     });
   },
   methods: {
+    loadMore() {
+      this.busy = true;
+
+      fetchMovies(page).then((movies) => {
+        this.movies = this.movies.concat(movies);
+      });
+      page += 1;
+      this.busy = false;
+    },
     getMovies() {
       searchMovie(this.searchQuery).then((movies) => {
         this.movies = movies;
