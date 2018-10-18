@@ -5,9 +5,8 @@
     <form @submit.prevent="getMovies">
       <input v-model="searchQuery">
       <button
-        type="button"
+        type="submit"
         class="btn btn-primary"
-        @click="getMovies"
       >Поиск фильмов</button>
     </form>
 
@@ -38,12 +37,14 @@
 
 <script>
 import blogPost from './Component.vue';
-import { fetchMovies, searchMovie } from './api/get-movies';
+// import searchForm from './SearchForm.vue';
+import { fetchMovies, searchMovie } from './api/movies-api';
 
 export default {
   name: 'App',
   components: {
     'blog-post': blogPost,
+    // 'search-form': searchForm,
   },
   data() {
     return {
@@ -81,5 +82,8 @@ export default {
 }
 .Card {
   width: 16%;
+  border: 1px solid black;
+  border-radius: 2px;
+  margin-bottom: 10px;
 }
 </style>

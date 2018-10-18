@@ -1,6 +1,5 @@
 <script>
 import Vue from 'vue';
-// import VueTypes from 'vue-types';
 
 export default Vue.component('blog-post', {
   props: {
