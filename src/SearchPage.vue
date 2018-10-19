@@ -23,32 +23,35 @@ export default {
   components: {
     MovieList,
   },
-  props: {
-    searchQuery: {
-      type: String,
-      required: false,
-      default: '',
-    },
-  },
+  // props: {
+  //   searchQuery: {
+  //     type: String,
+  //     required: false,
+  //     default: '',
+  //   },
+  // },
 
   data() {
     return {
-      // searchQuery: '',
       movies: [],
     };
   },
-
-  methods: {
-    getMovies() {
-      searchMovie(this.searchQuery).then((movies) => {
-        this.movies = movies;
-      });
-      this.$router.push('search');
+  computed: {
+    title() {
+      return this.$store.getters.title;
     },
+  },
+  created() {
+    searchMovie(this.title).then((movies) => {
+      this.movies = movies;
+    });
+    // this.$router.push('search');
+  },
+  methods: {
     loadMore() {
       this.busy = true;
 
-      searchMovie(this.searchQuery, pageNum).then((movies) => {
+      searchMovie(this.title, pageNum).then((movies) => {
         this.movies = this.movies.concat(movies);
       });
       pageNum += 1;

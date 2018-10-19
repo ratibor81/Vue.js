@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="getMovies">
+  <form @submit.prevent="getSearch">
     <input
       v-model="searchQuery"
       required
@@ -11,23 +11,18 @@
   </form>
 </template>
 <script>
-import { searchMovie } from './api/movies-api';
-
 export default {
   name: 'SearchForm',
 
   data() {
     return {
       searchQuery: '',
-      movies: [],
     };
   },
 
   methods: {
-    getMovies() {
-      searchMovie(this.searchQuery).then((movies) => {
-        this.movies = movies;
-      });
+    getSearch() {
+      this.$store.dispatch('SET_QUERY', this.searchQuery);
       this.$router.push('search');
     },
   },
