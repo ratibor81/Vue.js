@@ -7,6 +7,7 @@
       <router-link
         to="/search"
       >Search</router-link>
+      <router-link to="/watchlist">Watchlist</router-link>
     </nav>
     <router-view />
   </div>

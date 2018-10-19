@@ -2,7 +2,11 @@
   <form @submit.prevent="getSearch">
     <input
       v-model="searchQuery"
+      type="text"
+      placeholder="Enter movie title..."
       required
+      name="true"
+      autoComplete="on"
     >
     <button
       type="submit"

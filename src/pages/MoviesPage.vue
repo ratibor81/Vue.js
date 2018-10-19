@@ -5,6 +5,7 @@
     infinite-scroll-distance="10"
   >
     <movie-list :movies="movies" />
+
   </div>
 </template>
 
@@ -12,51 +13,53 @@
 <script>
 import Vue from 'vue';
 import infiniteScroll from 'vue-infinite-scroll';
-import { searchMovie } from './api/movies-api';
-import MovieList from './MovieList.vue';
+import { fetchMovies } from '../api/movies-api';
+import MovieList from '../MovieList.vue';
 
 Vue.use(infiniteScroll);
-let pageNum = 1;
+let page = 1;
 
 export default {
-  name: 'SearchPage',
+  name: 'MoviesPage',
   components: {
     MovieList,
   },
-  // props: {
-  //   searchQuery: {
-  //     type: String,
-  //     required: false,
-  //     default: '',
-  //   },
-  // },
-
   data() {
     return {
       movies: [],
+      busy: false,
     };
   },
-  computed: {
-    title() {
-      return this.$store.getters.title;
-    },
-  },
   created() {
-    searchMovie(this.title).then((movies) => {
+    fetchMovies().then((movies) => {
       this.movies = movies;
     });
-    // this.$router.push('search');
   },
   methods: {
     loadMore() {
       this.busy = true;
 
-      searchMovie(this.title, pageNum).then((movies) => {
+      fetchMovies(page).then((movies) => {
         this.movies = this.movies.concat(movies);
       });
-      pageNum += 1;
+      page += 1;
       this.busy = false;
     },
   },
 };
 </script>
+<style>
+.List {
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+}
+.Card {
+  width: 16%;
+  border: 1px solid black;
+  border-radius: 2px;
+  margin-bottom: 10px;
+}
+</style>
