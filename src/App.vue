@@ -1,43 +1,45 @@
 <template>
   <div id="app">
     <h2>Popular movies</h2>
-
     <form @submit.prevent="getMovies">
-      <input v-model="searchQuery">
+      <input
+        v-model="searchQuery"
+        required
+      >
       <button
         type="submit"
         class="btn btn-primary"
-      >Поиск фильмов</button>
+      >Search</button>
     </form>
-
-    <movies-page />
+    <nav>
+      <router-link to="/">Home</router-link>
+      <router-link
+        to="/search"
+      >Search</router-link>
+    </nav>
+    <router-view />
   </div>
 
 </template>
 
 <script>
-import MoviesPage from './MoviesPage.vue';
+// import MoviesPage from './MoviesPage.vue';
+// import SearchPage from './SearchPage.vue';
 // import searchForm from './SearchForm.vue';
-import { searchMovie } from './api/movies-api';
 
 export default {
   name: 'App',
   components: {
-    'movies-page': MoviesPage,
-    // 'search-form': searchForm,
+    // MoviesPage,
+    // SearchPage,
   },
   data() {
     return {
       searchQuery: '',
     };
   },
-
   methods: {
-    getMovies() {
-      searchMovie(this.searchQuery).then((movies) => {
-        this.movies = movies;
-      });
-    },
+    getMovies() {},
   },
 };
 </script>
