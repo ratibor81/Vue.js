@@ -28,8 +28,24 @@ export default {
   props: {
     movies: {
       type: Array,
-      required: true,
+      required: false,
+      default: null,
     },
   },
 };
 </script>
+<style>
+.List {
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+}
+.Card {
+  width: 16%;
+  border: 1px solid black;
+  border-radius: 2px;
+  margin-bottom: 10px;
+}
+</style>

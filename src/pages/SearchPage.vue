@@ -23,30 +23,13 @@ export default {
   components: {
     MovieList,
   },
-  // props: {
-  //   searchQuery: {
-  //     type: String,
-  //     required: false,
-  //     default: '',
-  //   },
-  // },
 
-  data() {
-    return {
-      movies: [],
-    };
-  },
   computed: {
-    title() {
-      return this.$store.getters.title;
+    movies() {
+      return this.$store.getters.search;
     },
   },
-  created() {
-    if (!this.title) return;
-    searchMovie(this.title).then((movies) => {
-      this.movies = movies;
-    });
-  },
+
   methods: {
     loadMore() {
       this.busy = true;

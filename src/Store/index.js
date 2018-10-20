@@ -1,23 +1,24 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { searchMovie } from '../api/movies-api';
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  state: { searchQuery: '' },
+  state: { search: null },
   getters: {
-    title(state) {
-      return state.searchQuery;
+    search(state) {
+      return state.search;
     },
   },
   mutations: {
-    SET_QUERY(state, payload) {
-      this.state.searchQuery = payload;
+    SET_SEARCH(state, payload) {
+      this.state.search = payload;
     },
   },
   actions: {
-    SET_QUERY({ commit }, title) {
-      commit('SET_QUERY', title);
+    GET_SEARCH: (context, title) => {
+      searchMovie(title).then(movies => context.commit('SET_SEARCH', movies));
     },
   },
 });

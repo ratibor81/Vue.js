@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import SearchPage from './pages/SearchPage.vue';
 import MoviesPage from './pages/MoviesPage.vue';
 import WatchlistPage from './pages/WatchlistPage.vue';
+import NotFoundPage from './pages/NotFoundPage.vue';
 
 Vue.use(VueRouter);
 
@@ -24,5 +25,6 @@ export default new VueRouter({
       name: 'watchlist',
       component: WatchlistPage,
     },
+    { path: '*', component: NotFoundPage },
   ],
 });
