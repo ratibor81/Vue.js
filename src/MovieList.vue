@@ -10,7 +10,7 @@
       role="link"
       tabIndex="0"
       href="/movies"
-      @click="onClick(movie)"
+      @click="getInfo(movie)"
     >
       <img
         :src="`https://image.tmdb.org/t/p/w200${movie.poster_path}`"
@@ -37,8 +37,9 @@ export default {
     },
   },
   methods: {
-    onClick(movie) {
-      return console.log(movie.id);
+    getInfo(movie) {
+      this.$router.push(`movies/${movie.id}`);
+      return this.$store.dispatch('SET_ID', movie.id);
     },
   },
 };

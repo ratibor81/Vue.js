@@ -14,13 +14,13 @@
       >
         <img
           className="{styles.poster_img}"
-          :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
+          :src="`https://image.tmdb.org/t/p/w300${movie.poster_path}`"
           alt="poster"
         >
       </div>
       <div className="{styles.content_right}">
         <h2 className="{styles.head_title}">{{ movie.original_title }}</h2>
-        <h4 className="{styles.tagline}">{{ movie.tagline }}</h4>
+        <h4 className="{styles.tagline}">"{{ movie.tagline }}"</h4>
         <p className="{styles.overview}">{{ movie.overview }}</p>
         <h4 className="{styles.headers}">Genres</h4>
         <ul class="list">
@@ -55,13 +55,24 @@ export default {
   components: {
     ContentLoader,
   },
+  props: {
+    id: {
+      type: String,
+      required: true,
+    },
+  },
   data() {
     return {
       movie: null,
     };
   },
+  computed: {
+    movieId() {
+      return this.$store.getters.id;
+    },
+  },
   mounted() {
-    searchById('335983').then((movie) => {
+    searchById(this.movieId).then((movie) => {
       this.movie = movie;
     });
   },

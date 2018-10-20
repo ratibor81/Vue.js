@@ -27,9 +27,10 @@ export default new VueRouter({
       component: WatchlistPage,
     },
     {
-      path: '/movies',
+      path: '/movies/:id',
       name: 'movies',
       component: MovieInfoPage,
+      props: true,
     },
     { path: '*', component: NotFoundPage },
   ],
