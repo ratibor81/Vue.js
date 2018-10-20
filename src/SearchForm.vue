@@ -26,6 +26,7 @@ export default {
 
   methods: {
     getSearch() {
+      this.$store.dispatch('SET_QUERY', this.searchQuery);
       this.$store.dispatch('GET_SEARCH', this.searchQuery);
       this.$router.push('search');
     },

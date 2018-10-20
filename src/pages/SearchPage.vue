@@ -12,7 +12,7 @@
 <script>
 import Vue from 'vue';
 import infiniteScroll from 'vue-infinite-scroll';
-import { searchMovie } from '../api/movies-api';
+// import { searchMovie } from '../api/movies-api';
 import MovieList from '../MovieList.vue';
 
 Vue.use(infiniteScroll);
@@ -28,15 +28,16 @@ export default {
     movies() {
       return this.$store.getters.search;
     },
+    title() {
+      return this.$store.getters.title;
+    },
   },
 
   methods: {
     loadMore() {
       this.busy = true;
       if (!this.title) return;
-      searchMovie(this.title, pageNum).then((movies) => {
-        this.movies = this.movies.concat(movies);
-      });
+      this.$store.dispatch('GET_MORE', this.title, pageNum);
       pageNum += 1;
       this.busy = false;
     },
