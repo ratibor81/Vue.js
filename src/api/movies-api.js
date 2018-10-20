@@ -14,3 +14,11 @@ export const searchMovie = (title, page) => {
 
   return axios.get(url).then(response => response.data.results);
 };
+
+export const searchById = (id) => {
+  const url = `${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`;
+
+  return axios.get(url).then(response => response.data);
+  // .then(onSuccess)
+  // .catch(error => onError(JSON.stringify(error)));
+};

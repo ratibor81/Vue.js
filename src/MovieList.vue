@@ -7,6 +7,10 @@
       v-for="(movie, index) in movies"
       :key="index"
       class="Card"
+      role="link"
+      tabIndex="0"
+      href="/movies"
+      @click="onClick(movie)"
     >
       <img
         :src="`https://image.tmdb.org/t/p/w200${movie.poster_path}`"
@@ -32,6 +36,11 @@ export default {
       default: null,
     },
   },
+  methods: {
+    onClick(movie) {
+      return console.log(movie.id);
+    },
+  },
 };
 </script>
 <style>
@@ -47,5 +56,6 @@ export default {
   border: 1px solid black;
   border-radius: 2px;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 </style>
