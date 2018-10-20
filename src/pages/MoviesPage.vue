@@ -5,7 +5,6 @@
     infinite-scroll-distance="10"
   >
     <movie-list :movies="movies" />
-
   </div>
 </template>
 

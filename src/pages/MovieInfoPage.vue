@@ -29,7 +29,9 @@
             :key="index"
             className="{styles.genre}"
           >
-            {{ genres.name }}
+            <router-link :to="`/movies/genre/${genres.id}`">
+              {{ genres.name }}
+            </router-link>
           </li>
         </ul>
         <h4 className="{styles.headers}">Companies</h4>
@@ -66,13 +68,8 @@ export default {
       movie: null,
     };
   },
-  computed: {
-    movieId() {
-      return this.$store.getters.id;
-    },
-  },
   mounted() {
-    searchById(this.movieId).then((movie) => {
+    searchById(this.$route.params.id).then((movie) => {
       this.movie = movie;
     });
   },

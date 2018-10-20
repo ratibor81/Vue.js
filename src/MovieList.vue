@@ -39,7 +39,6 @@ export default {
   methods: {
     getInfo(movie) {
       this.$router.push(`movies/${movie.id}`);
-      return this.$store.dispatch('SET_ID', movie.id);
     },
   },
 };
