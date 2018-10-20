@@ -22,7 +22,7 @@ const store = new Vuex.Store({
       this.state.search = payload;
     },
     SET_MORE(state, payload) {
-      if (!this.state.search || this.state.search.length < 20) return;
+      if (this.state.search.length < 20) return;
       this.state.search = this.state.search.concat(payload);
     },
   },

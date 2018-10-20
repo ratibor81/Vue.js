@@ -4,6 +4,7 @@
     infinite-scroll-disabled="busy"
     infinite-scroll-distance="10"
   >
+    <h2 v-if="movies.length === 0">Nothing found on your requset :(</h2>
     <movie-list :movies="movies" />
   </div>
 </template>
@@ -12,7 +13,6 @@
 <script>
 import Vue from 'vue';
 import infiniteScroll from 'vue-infinite-scroll';
-// import { searchMovie } from '../api/movies-api';
 import MovieList from '../MovieList.vue';
 
 Vue.use(infiniteScroll);
@@ -35,11 +35,11 @@ export default {
 
   methods: {
     loadMore() {
-      this.busy = true;
+      this.busy = false;
       if (!this.title) return;
       this.$store.dispatch('GET_MORE', this.title, pageNum);
+      this.busy = true;
       pageNum += 1;
-      this.busy = false;
     },
   },
 };
