@@ -8,7 +8,9 @@ Vue.use(Vuex);
 const vuexLocal = new VuexPersist({
   key: 'list',
   storage: window.localStorage,
-  reducer: state => state.watchlist,
+  reducer: state => ({
+    watchlist: state.watchlist,
+  }),
 });
 
 const store = new Vuex.Store({

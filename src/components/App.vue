@@ -22,9 +22,6 @@ export default {
   components: {
     SearchForm,
   },
-  created() {
-    console.log(JSON.parse(localStorage.getItem('list')));
-  },
 };
 </script>
 
