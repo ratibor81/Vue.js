@@ -5,13 +5,16 @@ import { searchMovie } from '../api/movies-api';
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  state: { searchQuery: '', search: null },
+  state: { searchQuery: '', search: null, watchlist: [] },
   getters: {
     title(state) {
       return state.searchQuery;
     },
     search(state) {
       return state.search;
+    },
+    watchlist(state) {
+      return state.watchlist;
     },
   },
   mutations: {
@@ -25,10 +28,16 @@ const store = new Vuex.Store({
       if (this.state.search.length < 20) return;
       this.state.search = this.state.search.concat(payload);
     },
+    ADD_TO_LIST(state, payload) {
+      this.state.watchlist = [payload, ...state.watchlist];
+    },
   },
   actions: {
     SET_QUERY({ commit }, title) {
       commit('SET_QUERY', title);
+    },
+    ADD_TO_WATCHLIST({ commit }, movie) {
+      commit('ADD_TO_LIST', movie);
     },
     GET_SEARCH: (context, title) => {
       searchMovie(title).then(movies => context.commit('SET_SEARCH', movies));
