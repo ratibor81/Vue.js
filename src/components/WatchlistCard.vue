@@ -5,12 +5,23 @@
       :src="`https://image.tmdb.org/t/p/w200${movie.poster_path}`"
       alt=""
     >
-    <div className="{styles.Info}">
+    <div class="Info">
       <h5 class="Title">{{ movie.title }}</h5>
       <h4 class="Date">Released: {{ movie.release_date.slice(0, -6) }}</h4>
       <div class="Rate">Rating: {{ movie.vote_average }}</div>
     </div>
-    <div class="Panel" />
+    <div class="Panel">
+      <button
+        type="button"
+        class="remove-button"
+        @click.prevent="removeFromList(movie)"
+      > Del </button>
+      <button
+        type="button"
+        class="info-button"
+        @click.prevent="getInfo(movie)"
+      > Info </button>
+    </div>
   </div>
 </template>
 <script>
@@ -21,6 +32,14 @@ export default {
       type: Object,
       required: false,
       default: null,
+    },
+  },
+  methods: {
+    removeFromList(movie) {
+      this.$store.dispatch('REMOVE_FROM_WATCHLIST', movie.id);
+    },
+    getInfo(movie) {
+      this.$router.push(`movies/${movie.id}`);
     },
   },
 };
@@ -57,5 +76,11 @@ export default {
   position: absolute;
   bottom: 0%;
   right: 3%;
+}
+.remove-button,
+.info-button {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
 }
 </style>
