@@ -6,7 +6,6 @@ import { searchMovie } from '../api/movies-api';
 Vue.use(Vuex);
 
 const vuexLocal = new VuexPersist({
-  key: 'list',
   storage: window.localStorage,
   reducer: state => ({
     watchlist: state.watchlist,

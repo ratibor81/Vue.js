@@ -1,5 +1,11 @@
 <template>
-  <div class="card">
+  <div
+    class="card"
+    role="link"
+    tabIndex="0"
+    href="/movies"
+    @click="getInfo(movie)"
+  >
     <img
       class="Poster"
       :src="`https://image.tmdb.org/t/p/w200${movie.poster_path}`"
@@ -16,11 +22,6 @@
         class="remove-button"
         @click.prevent="removeFromList(movie)"
       > Del </button>
-      <button
-        type="button"
-        class="info-button"
-        @click.prevent="getInfo(movie)"
-      > Info </button>
     </div>
   </div>
 </template>
@@ -50,6 +51,14 @@ export default {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.22);
   position: relative;
   display: flex;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  margin-right: 15px;
+}
+.card:hover {
+  transform: scale(1.05);
+  transition: 0.3s ease-in-out;
+  z-index: 100;
 }
 .Rate,
 .Date {
@@ -77,8 +86,7 @@ export default {
   bottom: 0%;
   right: 3%;
 }
-.remove-button,
-.info-button {
+.remove-button {
   width: 30px;
   height: 30px;
   cursor: pointer;

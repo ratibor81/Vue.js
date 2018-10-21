@@ -47,7 +47,6 @@ export default {
 .List {
   padding: 5px;
   width: 100%;
-  overflow: hidden;
   list-style: none;
   background-color: #fff !important;
 }
