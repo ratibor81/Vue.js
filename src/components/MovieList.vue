@@ -59,6 +59,7 @@ export default {
     },
     addToList(movie) {
       if (getItemById(this.watchlist, movie.id)) return;
+      // localStorage.setItem('list', JSON.stringify(this.watchlist));
 
       this.$store.dispatch('ADD_TO_WATCHLIST', movie);
     },

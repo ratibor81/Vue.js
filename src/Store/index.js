@@ -1,8 +1,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import VuexPersist from 'vuex-persist';
 import { searchMovie } from '../api/movies-api';
 
 Vue.use(Vuex);
+
+const vuexLocal = new VuexPersist({
+  key: 'list',
+  storage: window.localStorage,
+  reducer: state => state.watchlist,
+});
 
 const store = new Vuex.Store({
   state: { searchQuery: '', search: null, watchlist: [] },
@@ -54,6 +61,7 @@ const store = new Vuex.Store({
       searchMovie(title).then(movies => context.commit('SET_MORE', movies));
     },
   },
+  plugins: [vuexLocal.plugin],
 });
 
 export default store;

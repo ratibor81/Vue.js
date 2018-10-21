@@ -63,6 +63,7 @@ export default {
 }
 @media (min-width: 768px) {
   .Ul {
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     list-style: none;
