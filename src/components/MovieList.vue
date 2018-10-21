@@ -53,13 +53,17 @@ export default {
       return this.$store.getters.watchlist;
     },
   },
+  watch: {
+    movies() {
+      return console.log('GOOOOOOD');
+    },
+  },
   methods: {
     getInfo(movie) {
       this.$router.push(`movies/${movie.id}`);
     },
     addToList(movie) {
       if (getItemById(this.watchlist, movie.id)) return;
-      // localStorage.setItem('list', JSON.stringify(this.watchlist));
 
       this.$store.dispatch('ADD_TO_WATCHLIST', movie);
     },

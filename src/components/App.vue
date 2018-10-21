@@ -2,25 +2,19 @@
   <div id="app">
     <h2>Popular movies</h2>
     <search-form />
-    <nav>
-      <router-link to="/">Home</router-link>
-      <router-link
-        to="/search"
-      >Search</router-link>
-      <router-link to="/watchlist">Watchlist</router-link>
-    </nav>
-    <router-view />
+    <navigation />
   </div>
-
 </template>
 
 <script>
 import SearchForm from './SearchForm.vue';
+import Navigation from './Navigation.vue';
 
 export default {
   name: 'App',
   components: {
     SearchForm,
+    Navigation,
   },
 };
 </script>
