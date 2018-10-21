@@ -13,8 +13,7 @@
 <script>
 import Vue from 'vue';
 import infiniteScroll from 'vue-infinite-scroll';
-import { searchMovie } from '../api/movies-api';
-import MovieList from '../MovieList.vue';
+import MovieList from '../components/MovieList.vue';
 
 Vue.use(infiniteScroll);
 let pageNum = 1;
@@ -24,39 +23,19 @@ export default {
   components: {
     MovieList,
   },
-  data() {
-    return {
-      movies: [],
-    };
-  },
-
   computed: {
-    // movies() {
-    //   return this.$store.getters.search;
-    // },
+    movies() {
+      return this.$store.getters.search;
+    },
     title() {
       return this.$store.getters.title;
     },
-  },
-  created() {
-    searchMovie(this.title).then((movies) => {
-      this.movies = movies;
-    });
-  },
-  updated() {
-    if (!this.title) return;
-    searchMovie(this.title).then((movies) => {
-      this.movies = movies;
-    });
   },
   methods: {
     loadMore() {
       this.busy = false;
       // if (!this.title) return;
-      searchMovie(this.title, pageNum).then((movies) => {
-        this.movies = this.movies.concat(movies);
-      });
-      // this.$store.dispatch('GET_MORE', this.title, pageNum);
+      this.$store.dispatch('GET_MORE', this.title, pageNum);
       this.busy = true;
       pageNum += 1;
     },

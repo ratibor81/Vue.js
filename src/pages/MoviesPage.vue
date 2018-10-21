@@ -13,7 +13,7 @@
 import Vue from 'vue';
 import infiniteScroll from 'vue-infinite-scroll';
 import { fetchMovies } from '../api/movies-api';
-import MovieList from '../MovieList.vue';
+import MovieList from '../components/MovieList.vue';
 
 Vue.use(infiniteScroll);
 let page = 1;
