@@ -78,7 +78,7 @@ export default {
 }
 .Title {
   color: #311b92;
-  font-size: 10px;
+  font-size: 17px;
   margin-bottom: 10px;
 }
 .Panel {

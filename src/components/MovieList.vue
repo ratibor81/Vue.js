@@ -32,15 +32,20 @@
         class="btn remove"
         @click.stop.prevent="removeFromList(movie)"
       > - </button>
+      <favorite-btn />
     </li>
   </ul>
 </template>
 
 <script>
 import getItemById from '../helpers';
+import FavoriteBtn from './FavoriteButton.vue';
 
 export default {
   name: 'MovieList',
+  components: {
+    FavoriteBtn,
+  },
   props: {
     movies: {
       type: Array,
@@ -64,7 +69,6 @@ export default {
     },
     addToList(movie) {
       if (getItemById(this.watchlist, movie.id)) return;
-
       this.$store.dispatch('ADD_TO_WATCHLIST', movie);
     },
     removeFromList(movie) {
