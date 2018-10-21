@@ -31,6 +31,11 @@ const store = new Vuex.Store({
     ADD_TO_LIST(state, payload) {
       this.state.watchlist = [payload, ...state.watchlist];
     },
+    REMOVE_FROM_LIST(state, payload) {
+      this.state.watchlist = this.state.watchlist.filter(
+        movie => movie.id !== payload,
+      );
+    },
   },
   actions: {
     SET_QUERY({ commit }, title) {
@@ -38,6 +43,9 @@ const store = new Vuex.Store({
     },
     ADD_TO_WATCHLIST({ commit }, movie) {
       commit('ADD_TO_LIST', movie);
+    },
+    REMOVE_FROM_WATCHLIST({ commit }, id) {
+      commit('REMOVE_FROM_LIST', id);
     },
     GET_SEARCH: (context, title) => {
       searchMovie(title).then(movies => context.commit('SET_SEARCH', movies));

@@ -10,7 +10,6 @@
     >
     <button
       type="submit"
-      class="btn btn-primary"
     >Search</button>
   </form>
 </template>

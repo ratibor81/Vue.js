@@ -24,9 +24,14 @@
       <div>{{ movie.vote_average }}</div>
       <button
         type="button"
-        class="add_btn"
-        @click.stop.prevent="addToWatchlist(movie)"
+        class="btn"
+        @click.stop.prevent="addToList(movie)"
       > + </button>
+      <button
+        type="button"
+        class="btn remove"
+        @click.stop.prevent="removeFromList(movie)"
+      > - </button>
     </li>
   </ul>
 </template>
@@ -52,11 +57,13 @@ export default {
     getInfo(movie) {
       this.$router.push(`movies/${movie.id}`);
     },
-    addToWatchlist(movie) {
+    addToList(movie) {
       if (getItemById(this.watchlist, movie.id)) return;
 
       this.$store.dispatch('ADD_TO_WATCHLIST', movie);
-      // console.log(movie.id);
+    },
+    removeFromList(movie) {
+      this.$store.dispatch('REMOVE_FROM_WATCHLIST', movie.id);
     },
   },
 };
@@ -77,12 +84,15 @@ export default {
   cursor: pointer;
   position: relative;
 }
-.add_btn {
+.btn {
   position: absolute;
   top: 0;
   right: 0;
   width: 30px;
   height: 30px;
   cursor: pointer;
+}
+.remove {
+  top: 30px;
 }
 </style>
