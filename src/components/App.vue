@@ -3,18 +3,21 @@
     <h2>Popular movies</h2>
     <search-form />
     <nav-links />
+    <go-top-button />
   </div>
 </template>
 
 <script>
 import SearchForm from './SearchForm.vue';
 import NavLinks from './Navigation.vue';
+import GoTopButton from './GoTopButton.vue';
 
 export default {
   name: 'App',
   components: {
     SearchForm,
     NavLinks,
+    GoTopButton,
   },
 };
 </script>

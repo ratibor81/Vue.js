@@ -12,7 +12,9 @@
   "dependencies": {
     "axios": "^0.18.0",
     "vue": "^2.5.11",
+    "vue-backtotop": "^1.4.12",
     "vue-content-loader": "^0.2.1",
+    "vue-go-top-button": "^1.0.3",
     "vue-infinite-scroll": "^2.0.2",
     "vue-router": "^3.0.1",
     "vue-types": "^1.3.3",
