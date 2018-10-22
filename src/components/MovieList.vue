@@ -33,27 +33,18 @@
         @click.stop.prevent="removeFromList(movie)"
       > - </button>
       <div
-        v-if="favoriteChecker(movie)"
         class="fav"
-        @click.stop.prevent="favoriteChecker(movie)"
-      />
-      <!-- <favorite-btn
-        :movie="movie"
-        :value="value"
-      /> -->
+        :class="{'fav_selected': favHandler(movie)}"
+      >🟊</div>
     </li>
   </ul>
 </template>
 
 <script>
 import getItemById from '../helpers';
-// import FavoriteBtn from './FavoriteButton.vue';
 
 export default {
   name: 'MovieList',
-  // components: {
-  //   FavoriteBtn,
-  // },
   props: {
     movies: {
       type: Array,
@@ -71,11 +62,11 @@ export default {
       return this.$store.getters.watchlist;
     },
   },
-  watch: {
-    movies() {
-      return console.log('GOOOOOOD');
-    },
-  },
+  // watch: {
+  //   movies() {
+  //     return console.log('GOOOOOOD');
+  //   },
+  // },
   methods: {
     getInfo(movie) {
       this.$router.push(`movies/${movie.id}`);
@@ -87,7 +78,7 @@ export default {
     removeFromList(movie) {
       this.$store.dispatch('REMOVE_FROM_WATCHLIST', movie.id);
     },
-    favoriteChecker(movie) {
+    favHandler(movie) {
       if (this.watchlist.find(mov => mov.id === movie.id)) return true;
       return false;
     },
@@ -123,11 +114,16 @@ export default {
 }
 .fav {
   display: block;
-  width: 20px;
-  height: 20px;
-  background-color: #fdd835;
   position: absolute;
   top: 10px;
   left: 10px;
+  font-size: 40px;
+  color: #e0e0e0;
+  line-height: 1;
+  transition: color 0.2s ease-out;
+}
+.fav_selected {
+  color: #fdd835;
+  transition: color 0.2s ease-in;
 }
 </style>

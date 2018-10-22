@@ -19,6 +19,11 @@
         >
       </div>
       <div className="{styles.content_right}">
+        <div
+          v-if="favHandler(movie)"
+          class="fav-mark"
+          @click.prevent="removeFromList(movie)"
+        />
         <h2 className="{styles.head_title}">{{ movie.original_title }}</h2>
         <h4 className="{styles.tagline}">"{{ movie.tagline }}"</h4>
         <p className="{styles.overview}">{{ movie.overview }}</p>
@@ -71,6 +76,11 @@ export default {
       movie: null,
     };
   },
+  computed: {
+    watchlist() {
+      return this.$store.getters.watchlist;
+    },
+  },
   mounted() {
     searchById(this.$route.params.id).then((movie) => {
       this.movie = movie;
@@ -81,10 +91,17 @@ export default {
       this.$store.dispatch('SET_GENRE', String(genres.id));
       this.$router.push('/genres');
     },
+    favHandler(movie) {
+      if (this.watchlist.find(mov => mov.id === movie.id)) return true;
+      return false;
+    },
+    removeFromList(movie) {
+      this.$store.dispatch('REMOVE_FROM_WATCHLIST', movie.id);
+    },
   },
 };
 </script>
-<style>
+<style scoped>
 /* .content-wrapper {
   display: flex;
 } */
@@ -98,5 +115,16 @@ export default {
 }
 .list li {
   margin-right: 20px;
+}
+.fav-mark {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-color: #fdd835;
+  /* position: absolute;
+  top: 10px;
+  left: 10px; */
+  margin-left: 30px;
+  cursor: pointer;
 }
 </style>
