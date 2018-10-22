@@ -1,7 +1,8 @@
 <template>
   <div
     v-infinite-scroll="loadMore"
-    infinite-scroll-distance="10"
+    infinite-scroll-disabled="busy"
+    infinite-scroll-distance="50"
   >
     <movie-list :movies="movies" />
   </div>
@@ -15,7 +16,6 @@ import { fetchMovies } from '../api/movies-api';
 import MovieList from '../components/MovieList.vue';
 
 Vue.use(infiniteScroll);
-let page = 1;
 
 export default {
   name: 'MoviesPage',
@@ -26,19 +26,20 @@ export default {
     return {
       movies: [],
       busy: false,
+      page: 1,
     };
   },
-  created() {
-    fetchMovies().then((movies) => {
-      this.movies = movies;
-    });
-  },
+  // created() {
+  //   fetchMovies().then((movies) => {
+  //     this.movies = movies;
+  //   });
+  // },
   methods: {
     loadMore() {
-      fetchMovies(page).then((movies) => {
+      fetchMovies(this.page).then((movies) => {
         this.movies = this.movies.concat(movies);
       });
-      page += 1;
+      this.page += 1;
     },
   },
 };

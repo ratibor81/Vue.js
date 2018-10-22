@@ -14,22 +14,16 @@ import { getMoviesByGenreId } from '../api/movies-api';
 import MovieList from '../components/MovieList.vue';
 
 Vue.use(infiniteScroll);
-let pageN = 1;
 
 export default {
   name: 'MovieGenrePage',
   components: {
     MovieList,
   },
-  // props: {
-  //   id: {
-  //     type: String,
-  //     required: true,
-  //   },
-  // },
   data() {
     return {
       movies: [],
+      pageN: 1,
     };
   },
   computed: {
@@ -37,20 +31,18 @@ export default {
       return this.$store.getters.genre;
     },
   },
-  created() {
-    getMoviesByGenreId(this.genreId).then((movies) => {
-      this.movies = movies;
-    });
-  },
+  // created() {
+  //   getMoviesByGenreId(this.genreId).then((movies) => {
+  //     this.movies = movies;
+  //   });
+  // },
   methods: {
     loadMore() {
-      this.busy = true;
-
-      getMoviesByGenreId(this.genreId, pageN).then((movies) => {
+      getMoviesByGenreId(this.genreId, this.pageN).then((movies) => {
         this.movies = this.movies.concat(movies);
       });
-      pageN += 1;
-      this.busy = false;
+      this.pageN += 1;
+      // this.busy = false;
     },
   },
 };
