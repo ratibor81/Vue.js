@@ -32,7 +32,7 @@
         class="btn remove"
         @click.stop.prevent="removeFromList(movie)"
       > - </button>
-      <favorite-btn />
+      <favorite-btn :movie="movie" />
     </li>
   </ul>
 </template>

@@ -21,19 +21,24 @@ export default {
   components: {
     MovieList,
   },
-  props: {
-    id: {
-      type: String,
-      required: true,
-    },
-  },
+  // props: {
+  //   id: {
+  //     type: String,
+  //     required: true,
+  //   },
+  // },
   data() {
     return {
       movies: [],
     };
   },
+  computed: {
+    genreId() {
+      return this.$store.getters.genre;
+    },
+  },
   created() {
-    getMoviesByGenreId(this.$route.params.id).then((movies) => {
+    getMoviesByGenreId(this.genreId).then((movies) => {
       this.movies = movies;
     });
   },
@@ -41,7 +46,7 @@ export default {
     loadMore() {
       this.busy = true;
 
-      getMoviesByGenreId(this.$route.params.id, pageN).then((movies) => {
+      getMoviesByGenreId(this.genreId, pageN).then((movies) => {
         this.movies = this.movies.concat(movies);
       });
       pageN += 1;

@@ -2,19 +2,19 @@
   <div id="app">
     <h2>Popular movies</h2>
     <search-form />
-    <navigation />
+    <nav-links />
   </div>
 </template>
 
 <script>
 import SearchForm from './SearchForm.vue';
-import Navigation from './Navigation.vue';
+import NavLinks from './Navigation.vue';
 
 export default {
   name: 'App',
   components: {
     SearchForm,
-    Navigation,
+    NavLinks,
   },
 };
 </script>

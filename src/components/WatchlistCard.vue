@@ -20,7 +20,7 @@
       <button
         type="button"
         class="remove-button"
-        @click.prevent="removeFromList(movie)"
+        @click.stop.prevent="removeFromList(movie)"
       > Del </button>
     </div>
   </div>

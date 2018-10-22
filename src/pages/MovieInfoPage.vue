@@ -29,9 +29,12 @@
             :key="index"
             className="{styles.genre}"
           >
-            <router-link :to="`/movies/genre/${genres.id}`">
+            <button
+              type="button"
+              @click="goGenrePage(genres)"
+            >
               {{ genres.name }}
-            </router-link>
+            </button>
           </li>
         </ul>
         <h4 className="{styles.headers}">Companies</h4>
@@ -72,6 +75,12 @@ export default {
     searchById(this.$route.params.id).then((movie) => {
       this.movie = movie;
     });
+  },
+  methods: {
+    goGenrePage(genres) {
+      this.$store.dispatch('SET_GENRE', String(genres.id));
+      this.$router.push('/genres');
+    },
   },
 };
 </script>

@@ -13,7 +13,12 @@ const vuexLocal = new VuexPersist({
 });
 
 const store = new Vuex.Store({
-  state: { searchQuery: '', search: null, watchlist: [] },
+  state: {
+    searchQuery: '',
+    search: [],
+    watchlist: [],
+    genreId: '',
+  },
   getters: {
     title(state) {
       return state.searchQuery;
@@ -24,6 +29,9 @@ const store = new Vuex.Store({
     watchlist(state) {
       return state.watchlist;
     },
+    genre(state) {
+      return state.genreId;
+    },
   },
   mutations: {
     SET_QUERY(state, payload) {
@@ -31,6 +39,9 @@ const store = new Vuex.Store({
     },
     SET_SEARCH(state, payload) {
       this.state.search = payload;
+    },
+    SET_GENRE(state, payload) {
+      this.state.genreId = payload;
     },
     SET_MORE(state, payload) {
       if (this.state.search.length < 20) return;
@@ -48,6 +59,9 @@ const store = new Vuex.Store({
   actions: {
     SET_QUERY({ commit }, title) {
       commit('SET_QUERY', title);
+    },
+    SET_GENRE({ commit }, genre) {
+      commit('SET_GENRE', genre);
     },
     ADD_TO_WATCHLIST({ commit }, movie) {
       commit('ADD_TO_LIST', movie);

@@ -35,7 +35,7 @@ export default new VueRouter({
       props: true,
     },
     {
-      path: '/movies/genre/:id',
+      path: '/genres',
       name: 'genre',
       component: MovieGenrePage,
       props: true,

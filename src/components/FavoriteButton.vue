@@ -2,14 +2,13 @@
   <div class="favoriting">
     <label
       class="favorite__heart"
-      :class="{'favorite__heart__selected': value, 'is-disabled': disabled}"
+      :class="{'favorite__heart__selected': value}"
       @click.stop.prevent="favorite"
     >
       <input
         v-model="value"
         class="favorite__checkbox"
         type="checkbox"
-        disabled
       >
       ❤
     </label>
@@ -18,27 +17,31 @@
 <script>
 export default {
   name: 'FavoriteBtn',
-  // props: {
-  //   name: {
-  //     type: String,
-  //     default: 'favorite',
-  //   },
-  //   disabled: {
-  //     type: Boolean,
-  //     default: false,
-  //   },
-  // },
+  props: {
+    movie: {
+      type: Object,
+      required: true,
+    },
+    //   name: {
+    //     type: String,
+    //     default: 'favorite',
+    //   },
+    //   disabled: {
+    //     type: Boolean,
+    //     default: false,
+    //   },
+  },
   data() {
     return {
       value: false,
-      disabled: false,
     };
   },
   methods: {
     favorite() {
-      if (this.disabled === true) {
-        return;
+      if (this.value) {
+        this.$store.dispatch('REMOVE_FROM_WATCHLIST', this.movie.id);
       }
+      this.$store.dispatch('ADD_TO_WATCHLIST', this.movie);
       this.value = !this.value;
     },
   },

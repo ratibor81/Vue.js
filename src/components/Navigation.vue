@@ -19,7 +19,7 @@
 </template>
 <script>
 export default {
-  name: 'Navigation',
+  name: 'NavLinks',
 };
 </script>
 <style>

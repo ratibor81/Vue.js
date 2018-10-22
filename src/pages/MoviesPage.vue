@@ -1,7 +1,6 @@
 <template>
   <div
     v-infinite-scroll="loadMore"
-    infinite-scroll-disabled="busy"
     infinite-scroll-distance="10"
   >
     <movie-list :movies="movies" />
@@ -36,13 +35,10 @@ export default {
   },
   methods: {
     loadMore() {
-      this.busy = true;
-
       fetchMovies(page).then((movies) => {
         this.movies = this.movies.concat(movies);
       });
       page += 1;
-      this.busy = false;
     },
   },
 };
