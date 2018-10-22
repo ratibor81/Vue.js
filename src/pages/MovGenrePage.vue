@@ -31,18 +31,12 @@ export default {
       return this.$store.getters.genre;
     },
   },
-  // created() {
-  //   getMoviesByGenreId(this.genreId).then((movies) => {
-  //     this.movies = movies;
-  //   });
-  // },
   methods: {
     loadMore() {
       getMoviesByGenreId(this.genreId, this.pageN).then((movies) => {
         this.movies = this.movies.concat(movies);
       });
       this.pageN += 1;
-      // this.busy = false;
     },
   },
 };

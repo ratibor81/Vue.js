@@ -25,15 +25,9 @@ export default {
   data() {
     return {
       movies: [],
-      busy: false,
       page: 1,
     };
   },
-  // created() {
-  //   fetchMovies().then((movies) => {
-  //     this.movies = movies;
-  //   });
-  // },
   methods: {
     loadMore() {
       fetchMovies(this.page).then((movies) => {

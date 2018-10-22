@@ -41,11 +41,6 @@ export default {
       });
     },
   },
-  // created() {
-  //   searchMovie(this.title).then((movies) => {
-  //     this.movies = movies;
-  //   });
-  // },
   methods: {
     loadMore() {
       searchMovie(this.title, this.pageNum).then((movies) => {
