@@ -32,26 +32,39 @@
         class="btn remove"
         @click.stop.prevent="removeFromList(movie)"
       > - </button>
-      <favorite-btn :movie="movie" />
+      <div
+        v-if="favoriteChecker(movie)"
+        class="fav"
+        @click.stop.prevent="favoriteChecker(movie)"
+      />
+      <!-- <favorite-btn
+        :movie="movie"
+        :value="value"
+      /> -->
     </li>
   </ul>
 </template>
 
 <script>
 import getItemById from '../helpers';
-import FavoriteBtn from './FavoriteButton.vue';
+// import FavoriteBtn from './FavoriteButton.vue';
 
 export default {
   name: 'MovieList',
-  components: {
-    FavoriteBtn,
-  },
+  // components: {
+  //   FavoriteBtn,
+  // },
   props: {
     movies: {
       type: Array,
       required: false,
       default: null,
     },
+  },
+  data() {
+    return {
+      value: false,
+    };
   },
   computed: {
     watchlist() {
@@ -73,6 +86,10 @@ export default {
     },
     removeFromList(movie) {
       this.$store.dispatch('REMOVE_FROM_WATCHLIST', movie.id);
+    },
+    favoriteChecker(movie) {
+      if (this.watchlist.find(mov => mov.id === movie.id)) return true;
+      return false;
     },
   },
 };
@@ -103,5 +120,14 @@ export default {
 }
 .remove {
   top: 30px;
+}
+.fav {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-color: #fdd835;
+  position: absolute;
+  top: 10px;
+  left: 10px;
 }
 </style>

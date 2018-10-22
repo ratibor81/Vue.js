@@ -22,6 +22,10 @@ export default {
       type: Object,
       required: true,
     },
+    value: {
+      type: Boolean,
+      required: true,
+    },
     //   name: {
     //     type: String,
     //     default: 'favorite',
@@ -31,17 +35,22 @@ export default {
     //     default: false,
     //   },
   },
-  data() {
-    return {
-      value: false,
-    };
-  },
+  // data() {
+  //   return {
+  //     value: this.value,
+  //   };
+  // },
+  // computed: {
+  //   changeValue() {
+  //     return this.value;
+  //   },
+  // },
   methods: {
     favorite() {
-      if (this.value) {
-        this.$store.dispatch('REMOVE_FROM_WATCHLIST', this.movie.id);
-      }
-      this.$store.dispatch('ADD_TO_WATCHLIST', this.movie);
+      // if (this.value) {
+      //   this.$store.dispatch('REMOVE_FROM_WATCHLIST', this.movie.id);
+      // }
+      // this.$store.dispatch('ADD_TO_WATCHLIST', this.movie);
       this.value = !this.value;
     },
   },
