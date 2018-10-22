@@ -1,6 +1,6 @@
 <template>
   <ul
-    v-if="movies && movies.length"
+    v-if="movies"
     class="List"
   >
     <li
@@ -8,8 +8,6 @@
       :key="index"
       class="Card"
       role="link"
-      tabIndex="0"
-      href="/movies"
       @click="getInfo(movie)"
     >
       <img
@@ -23,19 +21,10 @@
       </h5>
       <div>{{ movie.vote_average }}</div>
       <button
-        type="button"
-        class="btn"
-        @click.stop.prevent="addToList(movie)"
-      > + </button>
-      <button
-        type="button"
-        class="btn remove"
-        @click.stop.prevent="removeFromList(movie)"
-      > - </button>
-      <div
         class="fav"
         :class="{'fav_selected': favHandler(movie)}"
-      >🟊</div>
+        @click.stop.prevent="watchlistHandler(movie)"
+      >🟊</button>
     </li>
   </ul>
 </template>
@@ -62,21 +51,14 @@ export default {
       return this.$store.getters.watchlist;
     },
   },
-  // watch: {
-  //   movies() {
-  //     return console.log('GOOOOOOD');
-  //   },
-  // },
   methods: {
     getInfo(movie) {
       this.$router.push(`movies/${movie.id}`);
     },
-    addToList(movie) {
-      if (getItemById(this.watchlist, movie.id)) return;
-      this.$store.dispatch('ADD_TO_WATCHLIST', movie);
-    },
-    removeFromList(movie) {
-      this.$store.dispatch('REMOVE_FROM_WATCHLIST', movie.id);
+    watchlistHandler(movie) {
+      if (getItemById(this.watchlist, movie.id)) {
+        this.$store.dispatch('REMOVE_FROM_WATCHLIST', movie.id);
+      } else this.$store.dispatch('ADD_TO_WATCHLIST', movie);
     },
     favHandler(movie) {
       if (this.watchlist.find(mov => mov.id === movie.id)) return true;
@@ -101,26 +83,23 @@ export default {
   cursor: pointer;
   position: relative;
 }
-.btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-}
-.remove {
-  top: 30px;
-}
 .fav {
-  display: block;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
   position: absolute;
   top: 10px;
-  left: 10px;
+  right: 10px;
   font-size: 40px;
-  color: #e0e0e0;
+  color: #827717;
   line-height: 1;
   transition: color 0.2s ease-out;
+  transition: 0.3s linear;
+}
+.fav:hover {
+  transform: rotate(72deg);
+  transition: 0.3s linear;
 }
 .fav_selected {
   color: #fdd835;

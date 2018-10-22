@@ -19,11 +19,11 @@
         >
       </div>
       <div className="{styles.content_right}">
-        <div
-          v-if="favHandler(movie)"
-          class="fav-mark"
-          @click.prevent="removeFromList(movie)"
-        />
+        <button
+          class="fav fav-mark"
+          :class="{'fav_selected': favHandler(movie)}"
+          @click.stop.prevent="watchlistHandler(movie)"
+        >🟊</button>
         <h2 className="{styles.head_title}">{{ movie.original_title }}</h2>
         <h4 className="{styles.tagline}">"{{ movie.tagline }}"</h4>
         <p className="{styles.overview}">{{ movie.overview }}</p>
@@ -59,6 +59,7 @@
 <script>
 import { ContentLoader } from 'vue-content-loader';
 import { searchById } from '../api/movies-api';
+import getItemById from '../helpers';
 
 export default {
   name: 'MovieInfoPage',
@@ -91,12 +92,14 @@ export default {
       this.$store.dispatch('SET_GENRE', String(genres.id));
       this.$router.push('/genres');
     },
+    watchlistHandler(movie) {
+      if (getItemById(this.watchlist, movie.id)) {
+        this.$store.dispatch('REMOVE_FROM_WATCHLIST', movie.id);
+      } else this.$store.dispatch('ADD_TO_WATCHLIST', movie);
+    },
     favHandler(movie) {
       if (this.watchlist.find(mov => mov.id === movie.id)) return true;
       return false;
-    },
-    removeFromList(movie) {
-      this.$store.dispatch('REMOVE_FROM_WATCHLIST', movie.id);
     },
   },
 };
@@ -117,14 +120,7 @@ export default {
   margin-right: 20px;
 }
 .fav-mark {
-  display: block;
-  width: 20px;
-  height: 20px;
-  background-color: #fdd835;
-  /* position: absolute;
-  top: 10px;
-  left: 10px; */
   margin-left: 30px;
-  cursor: pointer;
+  position: static !important;
 }
 </style>

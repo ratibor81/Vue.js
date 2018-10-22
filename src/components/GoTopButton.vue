@@ -31,5 +31,6 @@ export default {
   background-color: #0277bd;
   color: #fff;
   font-weight: bolder;
+  cursor: pointer;
 }
 </style>
