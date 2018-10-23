@@ -56,13 +56,24 @@
             {{ production_companies.name }}
           </li>
         </ul>
+        <div class="trailer_container">
+          <div class="trailer_frame">
+            <iframe
+              title="trailer"
+              :src="`https://www.youtube.com/embed/${trailer.key}`"
+              frameBorder="0"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
 import { ContentLoader } from 'vue-content-loader';
-import { searchById } from '../api/movies-api';
+import { searchById, getVideos } from '../api/movies-api';
 import getItemById from '../helpers';
 import ErrorHandler from '../components/ErrorHandler.vue';
 
@@ -82,6 +93,7 @@ export default {
     return {
       movie: null,
       error: null,
+      trailer: '',
     };
   },
   computed: {
@@ -115,6 +127,13 @@ export default {
         .catch((error) => {
           this.error = error;
         });
+      getVideos(this.$route.params.id)
+        .then((trailer) => {
+          this.trailer = trailer;
+        })
+        .catch((error) => {
+          this.error = error;
+        });
     },
   },
 };
@@ -137,5 +156,27 @@ export default {
 .fav-mark {
   margin-left: 30px;
   position: static !important;
+}
+.trailer_container {
+  width: 100%;
+  padding: 0 120px;
+}
+.trailer_frame {
+  border: 5px solid #979797;
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+}
+
+.trailer_frame iframe,
+.myvideo object,
+.myvideo embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 </style>
