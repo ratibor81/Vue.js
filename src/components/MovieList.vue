@@ -26,6 +26,14 @@
         @click.stop.prevent="watchlistHandler(movie)"
       >🟊</button>
     </li>
+    <v-snackbar
+      v-model="snackbar"
+      :bottom="y === 'bottom'"
+      :left="x === 'left'"
+      :timeout="timeout"
+    >
+      Movie added to your watchlist
+    </v-snackbar>
   </ul>
 </template>
 
@@ -43,7 +51,11 @@ export default {
   },
   data() {
     return {
-      value: false,
+      snackbar: false,
+      y: 'bottom',
+      x: 'left',
+      mode: '',
+      timeout: 1500,
     };
   },
   computed: {
@@ -58,7 +70,10 @@ export default {
     watchlistHandler(movie) {
       if (getItemById(this.watchlist, movie.id)) {
         this.$store.dispatch('REMOVE_FROM_WATCHLIST', movie.id);
-      } else this.$store.dispatch('ADD_TO_WATCHLIST', movie);
+      } else {
+        this.snackbar = true;
+        this.$store.dispatch('ADD_TO_WATCHLIST', movie);
+      }
     },
     favHandler(movie) {
       if (this.watchlist.find(mov => mov.id === movie.id)) return true;
@@ -74,11 +89,11 @@ export default {
   flex-wrap: wrap;
   justify-content: space-around;
   list-style: none;
+  padding-left: 0 !important;
 }
 .Card {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.22);
   width: 13%;
-  border: 1px solid #757575;
   border-radius: 10px;
   margin-bottom: 15px;
   overflow: hidden;
@@ -86,12 +101,12 @@ export default {
   position: relative;
   transition: 0.3s ease-out;
   animation: open-card 0.3s;
-  img {
-    width: 100%;
-  }
   &:hover {
     transform: scale(1.05);
     transition: 0.3s ease-in-out;
+  }
+  img {
+    width: 100%;
   }
 }
 .Title {
@@ -140,10 +155,6 @@ export default {
   line-height: 1;
   transition: color 0.2s ease-out;
   transition: 0.3s linear;
-  &:hover {
-    transform: rotate(72deg);
-    transition: 0.3s linear;
-  }
 }
 .fav_selected {
   color: #ffeb3b;
@@ -159,5 +170,8 @@ export default {
     transform: scale(1);
     transition: transform 300ms ease-in;
   }
+}
+.v-snack__wrapper {
+  min-width: 200px;
 }
 </style>

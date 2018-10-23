@@ -43,6 +43,7 @@ export default {
   padding: 5px;
   border: none;
   border-radius: 10px;
+  background-color: #fff;
 }
 .btn-standart {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.22);
@@ -61,5 +62,8 @@ export default {
     background-color: #64b5f6;
     transition: 0.3s linear;
   }
+}
+.v-btn {
+  margin: 0 !important;
 }
 </style>

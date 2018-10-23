@@ -11,8 +11,8 @@
       :src="`https://image.tmdb.org/t/p/w200${movie.poster_path}`"
       alt=""
     >
-    <div class="Info">
-      <h5 class="title">{{ movie.title }}</h5>
+    <div class="info">
+      <h5 class="movie_title">{{ movie.title }}</h5>
       <h4 class="date">Released: {{ movie.release_date.slice(0, -6) }}</h4>
       <div class="rate">Rating: {{ movie.vote_average }}</div>
     </div>
@@ -74,7 +74,7 @@ export default {
   height: 100%;
   margin-right: 8px;
 }
-.title {
+.movie_title {
   color: #311b92;
   font-size: 15px;
   margin-bottom: 10px;
