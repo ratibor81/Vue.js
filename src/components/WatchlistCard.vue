@@ -12,17 +12,15 @@
       alt=""
     >
     <div class="Info">
-      <h5 class="Title">{{ movie.title }}</h5>
-      <h4 class="Date">Released: {{ movie.release_date.slice(0, -6) }}</h4>
-      <div class="Rate">Rating: {{ movie.vote_average }}</div>
+      <h5 class="title">{{ movie.title }}</h5>
+      <h4 class="date">Released: {{ movie.release_date.slice(0, -6) }}</h4>
+      <div class="rate">Rating: {{ movie.vote_average }}</div>
     </div>
-    <div class="Panel">
-      <button
-        type="button"
-        class="remove-button"
-        @click.stop.prevent="removeFromList(movie)"
-      > Del </button>
-    </div>
+    <button
+      type="button"
+      class="remove-button"
+      @click.stop.prevent="removeFromList(movie)"
+    ><img src="../assets/delete.svg"></button>
   </div>
 </template>
 <script>
@@ -53,22 +51,22 @@ export default {
   display: flex;
   cursor: pointer;
   transition: 0.2s ease-in-out;
-  margin-right: 15px;
   &:hover {
     transform: scale(1.05);
     transition: 0.3s ease-in-out;
     z-index: 100;
   }
+  background-color: #fff;
 }
-.Rate,
-.Date {
-  font-size: 16px;
+.rate,
+.date {
+  font-size: 13px;
   font-weight: bold;
 }
-.Date {
+.date {
   margin-bottom: 10px;
 }
-.Rate {
+.rate {
   color: #0288d1;
 }
 .Poster {
@@ -76,19 +74,28 @@ export default {
   height: 100%;
   margin-right: 8px;
 }
-.Title {
+.title {
   color: #311b92;
-  font-size: 17px;
+  font-size: 15px;
   margin-bottom: 10px;
 }
-.Panel {
-  position: absolute;
-  bottom: 0%;
-  right: 3%;
-}
 .remove-button {
-  width: 30px;
-  height: 30px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.22);
+  position: absolute;
+  bottom: 5px;
+  right: 3%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   cursor: pointer;
+  outline: none;
+  background: none;
+  border: none;
+  padding: 7px;
+  transition: 0.4s linear;
+  &:hover {
+    background-color: #e0e0e0;
+    transition: 0.4s linear;
+  }
 }
 </style>

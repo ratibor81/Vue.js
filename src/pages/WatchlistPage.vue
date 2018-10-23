@@ -9,7 +9,7 @@
     </h2>
     <div
       v-if="movies.length > 0"
-      class="List"
+      class="list"
     >
       <ul
         class="Ul"
@@ -43,8 +43,8 @@ export default {
   },
 };
 </script>
-<style scoped>
-.List {
+<style lang="scss" scoped>
+.list {
   padding: 5px;
   width: 100%;
   list-style: none;
@@ -53,64 +53,27 @@ export default {
 .WatchListPage {
   display: flex;
   justify-content: center;
+  padding-top: 40px;
 }
-
-@media (min-width: 768px) {
-  .WatchListPage {
-    padding-top: 40px;
-  }
-}
-@media (min-width: 768px) {
-  .Ul {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    list-style: none;
-  }
-}
-
-.Card {
-  margin-bottom: 5px;
+.Ul {
   width: 100%;
-}
-.Card:last-child {
-  margin-bottom: 0;
-}
-/* @media (min-width: 768px) {
-  .Card {
-    width: 32.7%;
-    margin-right: 7px;
-  }
-  .Card:nth-last-child(-n + 3) {
-    margin-bottom: 0;
-  }
-  .Card:nth-child(3n) {
-    margin-right: 0;
-  }
-}
-@media (min-width: 1200px) {
-  .Card {
-    width: 24.5%;
-  }
-  .Card:nth-last-child(-n + 4) {
-    margin-bottom: 0;
-  }
-  .Card:nth-child(3n) {
-    margin-right: 7px;
-  }
-  .Card:nth-child(4n) {
-    margin-right: 0;
-  }
-} */
-@media (min-width: 1350px) {
-  .Card {
-    width: 24.6%;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
 }
 .EmptyMessage {
   color: #0277bd;
 }
 .List-item {
-  width: 25%;
+  width: 19.2%;
+  text-align: left;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  &:nth-last-child(-n + 5) {
+    margin-bottom: 0;
+  }
+  &:nth-child(5n) {
+    margin-right: 0;
+  }
 }
 </style>
