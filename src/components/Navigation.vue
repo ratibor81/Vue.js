@@ -1,5 +1,6 @@
 <template>
   <div class="nav">
+    <div class="Logo" />
     <nav>
       <router-link
         to="/"
@@ -23,16 +24,43 @@ export default {
   },
 };
 </script>
-<style>
+<style lang="scss">
 .is-active {
-  color: red;
+  color: #fff !important;
+  font-weight: bolder;
 }
 .nav-link {
-  font-size: 20px;
+  font-size: 22px;
   text-decoration: none;
+  text-transform: uppercase;
+  color: #212121;
   margin-right: 20px;
+  &:last-child {
+    margin-right: 0;
+  }
 }
 .nav {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.22);
   display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  z-index: 1000;
+  width: 100%;
+  background-color: #90a4ae;
+}
+nav {
+  margin-right: 30px;
+}
+.Logo {
+  background-image: url('../assets/logo.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
+  margin-right: 20px;
 }
 </style>

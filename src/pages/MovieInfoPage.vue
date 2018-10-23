@@ -1,5 +1,5 @@
 <template>
-  <div class="content-wrapper">
+  <div class="top">
     <error-handler
       v-if="error"
       :try-again="fetchData"

@@ -2,6 +2,7 @@
   <form @submit.prevent="getSearch">
     <input
       v-model="searchQuery"
+      class="input"
       type="text"
       placeholder="Enter movie title..."
       required
@@ -9,6 +10,7 @@
       autoComplete="on"
     >
     <button
+      class="btn-standart"
       type="submit"
     >Search</button>
   </form>
@@ -31,3 +33,33 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.input {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.22);
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  outline: none;
+  height: 25px;
+  padding: 5px;
+  border: none;
+  border-radius: 10px;
+}
+.btn-standart {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+  outline: none;
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  font-weight: bolder;
+  text-transform: uppercase;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2196f3;
+  transition: 0.3s linear;
+  &:hover {
+    background-color: #64b5f6;
+    transition: 0.3s linear;
+  }
+}
+</style>

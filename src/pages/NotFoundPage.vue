@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="top">
     <h1>
       Sorry, page not found
       <span

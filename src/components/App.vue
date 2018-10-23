@@ -2,7 +2,7 @@
   <div id="app">
     <nav-links />
     <router-view />
-    <!-- <h2>Popular movies</h2> -->
+    <div class="hidden" />
     <go-top-button />
   </div>
 </template>
@@ -31,7 +31,18 @@ body {
 }
 #app {
   text-align: center;
-  color: #2c3e50;
   padding: 0 15px;
+}
+.top {
+  padding-top: 65px;
+}
+.hidden {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 55px;
+  background-color: #fff;
+  z-index: 999;
 }
 </style>

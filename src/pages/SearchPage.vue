@@ -3,8 +3,12 @@
     v-infinite-scroll="loadMore"
     infinite-scroll-disabled="busy"
     infinite-scroll-distance="20"
+    class="top"
   >
-    <h2 v-if="movies.length===0">Nothing found on your requset :(</h2>
+    <h2
+      v-if="movies.length===0"
+      class="nothing_msg"
+    >Nothing found on your requset :(</h2>
     <error-handler
       v-if="error"
       :try-again="goSearch"
@@ -73,3 +77,8 @@ export default {
   },
 };
 </script>
+<style>
+.nothing_msg {
+  color: #e53935;
+}
+</style>

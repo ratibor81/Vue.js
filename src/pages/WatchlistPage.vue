@@ -1,6 +1,5 @@
 <template>
-
-  <div class="WatchListPage">
+  <div class="WatchListPage top">
     <h2
       v-if="movies.length === 0"
       class="EmptyMessage"
@@ -53,7 +52,6 @@ export default {
 .WatchListPage {
   display: flex;
   justify-content: center;
-  padding-top: 40px;
 }
 .Ul {
   width: 100%;

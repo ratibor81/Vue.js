@@ -2,6 +2,7 @@
   <div class="ErrorMessage">
     <h2>Internet connection error :(</h2>
     <Button
+      class="btn-standart"
       type="button"
       @click.prevent="tryAgain"
     >

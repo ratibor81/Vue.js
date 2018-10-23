@@ -3,6 +3,7 @@
     v-infinite-scroll="loadMore"
     infinite-scroll-disabled="busy"
     infinite-scroll-distance="40"
+    class="top"
   >
     <error-handler
       v-if="error"
