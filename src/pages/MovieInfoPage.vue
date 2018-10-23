@@ -1,5 +1,9 @@
 <template>
   <div class="content-wrapper">
+    <error-handler
+      v-if="error"
+      :try-again="fetchData"
+    />
     <content-loader
       v-if="!movie"
       :speed="2"
@@ -60,11 +64,13 @@
 import { ContentLoader } from 'vue-content-loader';
 import { searchById } from '../api/movies-api';
 import getItemById from '../helpers';
+import ErrorHandler from '../components/ErrorHandler.vue';
 
 export default {
   name: 'MovieInfoPage',
   components: {
     ContentLoader,
+    ErrorHandler,
   },
   props: {
     id: {
@@ -75,6 +81,7 @@ export default {
   data() {
     return {
       movie: null,
+      error: null,
     };
   },
   computed: {
@@ -83,9 +90,7 @@ export default {
     },
   },
   mounted() {
-    searchById(this.$route.params.id).then((movie) => {
-      this.movie = movie;
-    });
+    this.fetchData();
   },
   methods: {
     goGenrePage(genres) {
@@ -100,6 +105,16 @@ export default {
     favHandler(movie) {
       if (this.watchlist.find(mov => mov.id === movie.id)) return true;
       return false;
+    },
+    fetchData() {
+      this.error = null;
+      searchById(this.$route.params.id)
+        .then((movie) => {
+          this.movie = movie;
+        })
+        .catch((error) => {
+          this.error = error;
+        });
     },
   },
 };
