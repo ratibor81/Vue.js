@@ -12,14 +12,14 @@
     >
       <img
         :src="`https://image.tmdb.org/t/p/w200${movie.poster_path}`"
-        alt=""
+        alt="movie poster"
       >
-      <p>{{ movie.title }}</p>
-      <h5>
+      <p class="Title">{{ movie.title }}</p>
+      <h5 class="Date">
         Release date:
-        <span>{{ movie.release_date.slice(0, -6) }}</span>
+        <span class="Date_num">{{ movie.release_date.slice(0, -6) }}</span>
       </h5>
-      <div>{{ movie.vote_average }}</div>
+      <div class="Rate">{{ movie.vote_average }}</div>
       <button
         class="fav"
         :class="{'fav_selected': favHandler(movie)}"
@@ -67,21 +67,65 @@ export default {
   },
 };
 </script>
-<style>
+<style lang="scss">
 .List {
   text-align: left;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   list-style: none;
 }
 .Card {
-  width: 16%;
-  border: 1px solid black;
-  border-radius: 2px;
-  margin-bottom: 10px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.22);
+  width: 13%;
+  border: 1px solid #757575;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  overflow: hidden;
   cursor: pointer;
   position: relative;
+  transition: 0.3s ease-out;
+  animation: open-card 0.3s;
+  img {
+    width: 100%;
+  }
+  &:hover {
+    transform: scale(1.05);
+    transition: 0.3s ease-in-out;
+  }
+}
+.Title {
+  font-size: 11px;
+  color: #1a237e;
+  margin-bottom: 5px;
+  text-align: center;
+  height: 13px;
+  overflow: hidden;
+  font-weight: bolder;
+}
+.Rate {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #2196f3;
+  color: #fff;
+  font-size: 14px;
+  padding: 3px;
+  text-align: center;
+  width: 45px;
+  border-radius: 0 0 10px 0;
+  font-weight: bold;
+}
+
+.Date {
+  font-size: 11px;
+  margin-bottom: 0;
+  text-align: center;
+}
+.Date_num {
+  color: #f44336;
+  margin-left: 5px;
+  font-weight: bold;
 }
 .fav {
   background: none;
@@ -96,13 +140,24 @@ export default {
   line-height: 1;
   transition: color 0.2s ease-out;
   transition: 0.3s linear;
-}
-.fav:hover {
-  transform: rotate(72deg);
-  transition: 0.3s linear;
+  &:hover {
+    transform: rotate(72deg);
+    transition: 0.3s linear;
+  }
 }
 .fav_selected {
-  color: #fdd835;
+  color: #ffeb3b;
   transition: color 0.2s ease-in;
+}
+@keyframes open-card {
+  0% {
+    transform: scale(0);
+    transition: transform 300ms ease-in;
+  }
+
+  100% {
+    transform: scale(1);
+    transition: transform 300ms ease-in;
+  }
 }
 </style>
