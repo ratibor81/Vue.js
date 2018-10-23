@@ -14,44 +14,44 @@
       class="content"
     >
       <div
-        className="{styles.poster}"
+        class="poster"
       >
         <img
-          className="{styles.poster_img}"
-          :src="`https://image.tmdb.org/t/p/w300${movie.poster_path}`"
+          :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
           alt="poster"
         >
       </div>
-      <div className="{styles.content_right}">
+      <div class="content_right">
         <button
           class="fav fav-mark"
           :class="{'fav_selected': favHandler(movie)}"
           @click.stop.prevent="watchlistHandler(movie)"
         >🟊</button>
-        <h2 className="{styles.head_title}">{{ movie.original_title }}</h2>
-        <h4 className="{styles.tagline}">"{{ movie.tagline }}"</h4>
-        <p className="{styles.overview}">{{ movie.overview }}</p>
-        <h4 className="{styles.headers}">Genres</h4>
+        <h2 class="head_title">{{ movie.original_title }}</h2>
+        <h4 class="tagline">"{{ movie.tagline }}"</h4>
+        <p class="overview">{{ movie.overview }}</p>
+        <h4 class="headers">Genres</h4>
         <ul class="list">
           <li
             v-for="(genres, index) in movie.genres"
             :key="index"
-            className="{styles.genre}"
+            class="genre"
           >
             <button
               type="button"
+              class="genre_btn"
               @click="goGenrePage(genres)"
             >
               {{ genres.name }}
             </button>
           </li>
         </ul>
-        <h4 className="{styles.headers}">Companies</h4>
+        <h4 class="headers">Companies</h4>
         <ul class="list">
           <li
             v-for="(production_companies, index) in movie.production_companies"
             :key="index"
-            className="{styles.companie}"
+            class="companie"
           >
             {{ production_companies.name }}
           </li>
@@ -138,23 +138,59 @@ export default {
   },
 };
 </script>
-<style scoped>
-/* .content-wrapper {
-  display: flex;
-} */
+<style lang="scss" scoped>
 .content {
   display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.22);
+  padding: 20px;
+  border: 1px solid lightgrey;
+  background-color: #fff;
+  &_right {
+    width: 65%;
+  }
+}
+.poster {
+  width: 33%;
+  img {
+    width: 100%;
+  }
+}
+.head_title {
+  font-size: 26px;
+  margin-bottom: 5px;
+}
+.tagline {
+  margin-bottom: 10px;
+  font-style: italic;
+  font-size: 16px;
+}
+.overview {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+.headers {
+  margin-bottom: 5px;
+  color: #37474f;
+}
+.genre,
+.companie {
+  display: inline-block;
+  margin-right: 15px;
+  color: #01579b;
+  font-size: 13px;
+  font-weight: bold;
 }
 .list {
-  display: flex;
-  list-style: none;
-  width: 100%;
-}
-.list li {
-  margin-right: 20px;
+  margin-bottom: 14px;
+  padding-left: 15px;
+  line-height: 1.5;
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 .fav-mark {
-  margin-left: 30px;
   position: static !important;
 }
 .trailer_container {
@@ -162,7 +198,7 @@ export default {
   padding: 0 120px;
 }
 .trailer_frame {
-  border: 5px solid #979797;
+  border: 2px solid #979797;
   position: relative;
   padding-bottom: 56.25%;
   padding-top: 30px;
@@ -178,5 +214,19 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
+}
+.genre_btn {
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  width: 100%;
+  color: #01579b;
+  font-size: 13px;
+  font-weight: bold;
+  outline: none;
+  background: none;
+  border: none;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 </style>

@@ -45,7 +45,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .card {
   padding: 5px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.22);
@@ -54,11 +54,11 @@ export default {
   cursor: pointer;
   transition: 0.2s ease-in-out;
   margin-right: 15px;
-}
-.card:hover {
-  transform: scale(1.05);
-  transition: 0.3s ease-in-out;
-  z-index: 100;
+  &:hover {
+    transform: scale(1.05);
+    transition: 0.3s ease-in-out;
+    z-index: 100;
+  }
 }
 .Rate,
 .Date {

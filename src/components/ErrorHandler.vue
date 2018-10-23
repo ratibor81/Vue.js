@@ -21,12 +21,12 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .ErrorMessage {
   text-align: center;
   color: red;
-}
-.ErrorMessage h2 {
-  margin-bottom: 15px;
+  h2 {
+    margin-bottom: 15px;
+  }
 }
 </style>
