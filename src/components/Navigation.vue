@@ -13,7 +13,7 @@
       <router-link
         v-if="!user"
         to="/auth"
-        class="nav-link"
+        class="nav-link sign-in"
       >SignIn</router-link>
     </nav>
     <search-form />
@@ -21,13 +21,14 @@
       v-if="user"
       class="btn-standart btn-logout"
       @click="logOut"
-    >Log out</button>
+    >Logout</button>
     <img
       v-if="user && user.photoURL"
       class="user_foto"
       :src="user.photoURL"
       alt="profile foto"
     >
+
   </div>
 </template>
 <script>
@@ -47,7 +48,8 @@ export default {
   methods: {
     logOut() {
       firebase.auth().signOut();
-      this.$router.push('/auth');
+      this.$store.dispatch('SET_USER', null);
+      this.$router.push('/');
     },
   },
 };
@@ -98,8 +100,18 @@ nav {
   height: 30px;
   border-radius: 50%;
   overflow: hidden;
+  z-index: 1001;
 }
 .btn-logout {
-  background-color: #ff8a65 !important;
+  background-color: #ff3d00 !important;
+  text-transform: none !important;
+}
+.sign-in {
+  text-transform: none !important;
+}
+.menu {
+  position: absolute;
+  right: 3%;
+  z-index: 1002;
 }
 </style>

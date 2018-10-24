@@ -16,7 +16,10 @@ export default new Vue({
   created() {
     firebase.initializeApp(config);
     firebase.auth().onAuthStateChanged((user) => {
-      this.$store.dispatch('SET_USER', user);
+      if (user) {
+        this.$store.dispatch('SET_USER', user);
+        this.$router.push('/');
+      }
     });
   },
   render: h => h(App),

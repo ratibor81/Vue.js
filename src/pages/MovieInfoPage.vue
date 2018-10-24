@@ -82,7 +82,7 @@
 <script>
 import { ContentLoader } from 'vue-content-loader';
 import { searchById, getVideos } from '../api/movies-api';
-import getItemById from '../helpers';
+import { getItemById } from '../helpers';
 import ErrorHandler from '../components/ErrorHandler.vue';
 
 export default {
