@@ -55,6 +55,7 @@ export default {
   },
   methods: {
     loadMore() {
+      if (this.title === '') return;
       searchMovie(this.title, this.pageNum)
         .then((movies) => {
           this.movies = this.movies.concat(movies);
