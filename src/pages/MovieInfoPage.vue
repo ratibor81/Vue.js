@@ -69,6 +69,14 @@
         </div>
       </div>
     </div>
+    <v-snackbar
+      v-model="snackbar"
+      :bottom="y === 'bottom'"
+      :left="x === 'left'"
+      :timeout="timeout"
+    >
+      Movie added to your watchlist
+    </v-snackbar>
   </div>
 </template>
 <script>
@@ -94,6 +102,11 @@ export default {
       movie: null,
       error: null,
       trailer: '',
+      snackbar: false,
+      y: 'bottom',
+      x: 'left',
+      mode: '',
+      timeout: 1500,
     };
   },
   computed: {
@@ -112,7 +125,10 @@ export default {
     watchlistHandler(movie) {
       if (getItemById(this.watchlist, movie.id)) {
         this.$store.dispatch('REMOVE_FROM_WATCHLIST', movie.id);
-      } else this.$store.dispatch('ADD_TO_WATCHLIST', movie);
+      } else {
+        this.snackbar = true;
+        this.$store.dispatch('ADD_TO_WATCHLIST', movie);
+      }
     },
     favHandler(movie) {
       if (this.watchlist.find(mov => mov.id === movie.id)) return true;

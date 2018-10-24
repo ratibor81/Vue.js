@@ -1,11 +1,12 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import SearchPage from './pages/SearchPage.vue';
-import MoviesPage from './pages/MoviesPage.vue';
-import WatchlistPage from './pages/WatchlistPage.vue';
-import NotFoundPage from './pages/NotFoundPage.vue';
-import MovieInfoPage from './pages/MovieInfoPage.vue';
-import MovieGenrePage from './pages/MovGenrePage.vue';
+
+const Home = () => import(/* webpackChunkName: "home" */ './pages/MoviesPage.vue');
+const Search = () => import(/* webpackChunkName: "search" */ './pages/SearchPage.vue');
+const Watchlist = () => import(/* webpackChunkName: "watchlist" */ './pages/WatchlistPage.vue');
+const NotFound = () => import(/* webpackChunkName: "not-found" */ './pages/NotFoundPage.vue');
+const MovieInfo = () => import(/* webpackChunkName: "movie-info" */ './pages/MovieInfoPage.vue');
+const MovieGenre = () => import(/* webpackChunkName: "movie-genre" */ './pages/MovGenrePage.vue');
 
 Vue.use(VueRouter);
 
@@ -16,30 +17,30 @@ export default new VueRouter({
     {
       path: '/',
       name: 'home',
-      component: MoviesPage,
+      component: Home,
     },
     {
       path: '/search',
       name: 'search',
-      component: SearchPage,
+      component: Search,
     },
     {
       path: '/watchlist',
       name: 'watchlist',
-      component: WatchlistPage,
+      component: Watchlist,
     },
     {
       path: '/movies/:id',
       name: 'movies',
-      component: MovieInfoPage,
+      component: MovieInfo,
       props: true,
     },
     {
       path: '/genres',
       name: 'genre',
-      component: MovieGenrePage,
+      component: MovieGenre,
       props: true,
     },
-    { path: '*', component: NotFoundPage },
+    { path: '*', component: NotFound },
   ],
 });
