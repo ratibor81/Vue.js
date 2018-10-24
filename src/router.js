@@ -8,6 +8,9 @@ const NotFound = () => import(/* webpackChunkName: "not-found" */ './pages/NotFo
 const MovieInfo = () => import(/* webpackChunkName: "movie-info" */ './pages/MovieInfoPage.vue');
 const MovieGenre = () => import(/* webpackChunkName: "movie-genre" */ './pages/MovGenrePage.vue');
 
+const Auth = () => import(/* webpackChunkName: "auth" */ './pages/Auth.vue');
+const AuthSuccess = () => import(/* webpackChunkName: "auth-succsess" */ './pages/AuthSuccess.vue');
+
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -42,5 +45,7 @@ export default new VueRouter({
       props: true,
     },
     { path: '*', component: NotFound },
+    { path: '/auth', component: Auth },
+    { path: '/success', component: AuthSuccess },
   ],
 });

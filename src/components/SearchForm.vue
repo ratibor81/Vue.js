@@ -1,5 +1,8 @@
 <template>
-  <form @submit.prevent="getSearch">
+  <form
+    class="search-panel"
+    @submit.prevent="getSearch"
+  >
     <input
       v-model="searchQuery"
       class="input"
@@ -65,5 +68,9 @@ export default {
 }
 .v-btn {
   margin: 0 !important;
+}
+.search-panel {
+  position: absolute;
+  right: 50%;
 }
 </style>
