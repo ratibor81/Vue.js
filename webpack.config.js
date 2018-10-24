@@ -26,7 +26,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/,
+        exclude: /node_modules(?![\\/]vuex-persist[\\/])/,
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
@@ -41,9 +41,6 @@ module.exports = {
     extensions: ['*', '.js', '.vue', '.json'],
     alias: {
       vue$: 'vue/dist/vue.esm.js',
-      '@': path.resolve(__dirname, 'src'),
-      '@pages': path.resolve(__dirname, 'src/pages'),
-      '@api': path.resolve(__dirname, 'src/api'),
     },
   },
   devServer: {

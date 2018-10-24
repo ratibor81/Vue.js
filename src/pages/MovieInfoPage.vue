@@ -23,8 +23,9 @@
       </div>
       <div class="content_right">
         <button
+          :disabled="!user"
           class="fav fav-mark"
-          :class="{'fav_selected': favHandler(movie)}"
+          :class="{'fav_selected': favHandler(movie), 'fav_disabled': !user}"
           @click.stop.prevent="watchlistHandler(movie)"
         >🟊</button>
         <h2 class="head_title">{{ movie.original_title }}</h2>
@@ -112,6 +113,9 @@ export default {
   computed: {
     watchlist() {
       return this.$store.getters.watchlist;
+    },
+    user() {
+      return this.$store.getters.user;
     },
   },
   mounted() {
