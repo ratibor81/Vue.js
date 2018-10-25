@@ -178,7 +178,7 @@ export default {
   }
 }
 .head_title {
-  font-size: 26px;
+  font-size: 30px;
   margin-bottom: 5px;
 }
 .tagline {
@@ -187,10 +187,11 @@ export default {
   font-size: 16px;
 }
 .overview {
-  font-size: 12px;
+  font-size: 15px;
   margin-bottom: 5px;
 }
 .headers {
+  font-size: 17px;
   margin-bottom: 5px;
   color: #37474f;
 }
@@ -199,7 +200,7 @@ export default {
   display: inline-block;
   margin-right: 15px;
   color: #01579b;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: bold;
 }
 .list {
@@ -240,7 +241,7 @@ export default {
   cursor: pointer;
   width: 100%;
   color: #01579b;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: bold;
   outline: none;
   background: none;

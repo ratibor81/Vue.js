@@ -45,6 +45,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .card {
+  outline: none;
   padding: 5px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.22);
   position: relative;
