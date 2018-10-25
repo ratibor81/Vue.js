@@ -10,17 +10,47 @@
         to="/watchlist"
         class="nav-link"
       >Watchlist</router-link>
+      <router-link
+        v-if="!user"
+        to="/auth"
+        class="nav-link sign-in"
+      >SignIn</router-link>
     </nav>
     <search-form />
+    <button
+      v-if="user"
+      class="btn-standart btn-logout"
+      @click="logOut"
+    >Logout</button>
+    <img
+      v-if="user && user.photoURL"
+      class="user_foto"
+      :src="user.photoURL"
+      alt="profile foto"
+    >
+
   </div>
 </template>
 <script>
+import firebase from 'firebase/app';
 import SearchForm from './SearchForm.vue';
 
 export default {
   name: 'NavLinks',
   components: {
     SearchForm,
+  },
+  computed: {
+    user() {
+      return this.$store.getters.user;
+    },
+  },
+  methods: {
+    logOut() {
+      firebase.auth().signOut();
+      this.$store.dispatch('SET_USER', null);
+      this.$router.push('/');
+    },
   },
 };
 </script>
@@ -62,5 +92,26 @@ nav {
   width: 30px;
   height: 30px;
   margin-right: 20px;
+}
+.user_foto {
+  position: absolute;
+  right: 3%;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 1001;
+}
+.btn-logout {
+  background-color: #ff3d00 !important;
+  text-transform: none !important;
+}
+.sign-in {
+  text-transform: none !important;
+}
+.menu {
+  position: absolute;
+  right: 3%;
+  z-index: 1002;
 }
 </style>

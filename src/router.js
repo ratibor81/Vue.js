@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import { requireAuth } from './helpers';
 
 const Home = () => import(/* webpackChunkName: "home" */ './pages/MoviesPage.vue');
 const Search = () => import(/* webpackChunkName: "search" */ './pages/SearchPage.vue');
@@ -7,10 +8,11 @@ const Watchlist = () => import(/* webpackChunkName: "watchlist" */ './pages/Watc
 const NotFound = () => import(/* webpackChunkName: "not-found" */ './pages/NotFoundPage.vue');
 const MovieInfo = () => import(/* webpackChunkName: "movie-info" */ './pages/MovieInfoPage.vue');
 const MovieGenre = () => import(/* webpackChunkName: "movie-genre" */ './pages/MovGenrePage.vue');
+const Auth = () => import(/* webpackChunkName: "auth" */ './pages/Auth.vue');
 
 Vue.use(VueRouter);
 
-export default new VueRouter({
+const router = new VueRouter({
   mode: 'history',
   linkExactActiveClass: 'is-active',
   routes: [
@@ -28,6 +30,7 @@ export default new VueRouter({
       path: '/watchlist',
       name: 'watchlist',
       component: Watchlist,
+      beforeEnter: requireAuth,
     },
     {
       path: '/movies/:id',
@@ -41,6 +44,17 @@ export default new VueRouter({
       component: MovieGenre,
       props: true,
     },
-    { path: '*', component: NotFound },
+    {
+      path: '/auth',
+      name: 'auth',
+      component: Auth,
+    },
+    {
+      path: '*',
+      name: '404',
+      component: NotFound,
+    },
   ],
 });
+
+export default router;

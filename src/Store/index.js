@@ -16,6 +16,7 @@ const store = new Vuex.Store({
     searchQuery: '',
     watchlist: [],
     genreId: '',
+    user: null,
   },
   getters: {
     title(state) {
@@ -26,6 +27,9 @@ const store = new Vuex.Store({
     },
     genre(state) {
       return state.genreId;
+    },
+    user(state) {
+      return state.user;
     },
   },
   mutations: {
@@ -43,8 +47,14 @@ const store = new Vuex.Store({
         movie => movie.id !== payload,
       );
     },
+    SET_USER(state, payload) {
+      this.state.user = payload;
+    },
   },
   actions: {
+    SET_USER({ commit }, user) {
+      commit('SET_USER', user);
+    },
     SET_QUERY({ commit }, title) {
       commit('SET_QUERY', title);
     },

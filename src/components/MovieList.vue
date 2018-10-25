@@ -21,8 +21,9 @@
       </h5>
       <div class="Rate">{{ movie.vote_average }}</div>
       <button
+        :disabled="!user"
         class="fav"
-        :class="{'fav_selected': favHandler(movie)}"
+        :class="{'fav_selected': favHandler(movie), 'fav_disabled': !user}"
         @click.stop.prevent="watchlistHandler(movie)"
       >🟊</button>
     </li>
@@ -38,7 +39,7 @@
 </template>
 
 <script>
-import getItemById from '../helpers';
+import { getItemById } from '../helpers';
 
 export default {
   name: 'MovieList',
@@ -61,6 +62,9 @@ export default {
   computed: {
     watchlist() {
       return this.$store.getters.watchlist;
+    },
+    user() {
+      return this.$store.getters.user;
     },
   },
   methods: {
@@ -159,6 +163,9 @@ export default {
 .fav_selected {
   color: #ffeb3b;
   transition: color 0.2s ease-in;
+}
+.fav_disabled {
+  color: #e0e0e0;
 }
 @keyframes open-card {
   0% {
