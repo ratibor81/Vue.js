@@ -11,20 +11,19 @@
     />
     <movie-list
       v-if="!error"
-      :movies="movies"
     />
   </div>
 </template>
 
-
 <script>
-import Vue from 'vue';
-import infiniteScroll from 'vue-infinite-scroll';
-import { fetchMovies } from '../api/movies-api';
+// import Vue from 'vue';
+// import { mapState } from 'vuex';
+// import infiniteScroll from 'vue-infinite-scroll';
+// import { fetchMovies } from '../api/movies-api';
 import MovieList from '../components/MovieList.vue';
 import ErrorHandler from '../components/ErrorHandler.vue';
 
-Vue.use(infiniteScroll);
+// Vue.use(infiniteScroll);
 
 export default {
   name: 'MoviesPage',
@@ -34,20 +33,30 @@ export default {
   },
   data() {
     return {
-      movies: [],
+      // movies: [],
       page: 1,
       error: null,
     };
   },
+
+  // computed: {
+  //   movies() {
+  //     return this.$store.getters.movies;
+  //   },
+  // },
+  // beforeDestroy() {
+  //   this.$store.dispatch('RESET_MOVIES');
+  // },
   methods: {
     loadMore() {
-      fetchMovies(this.page)
-        .then((movies) => {
-          this.movies = this.movies.concat(movies);
-        })
-        .catch((error) => {
-          this.error = error;
-        });
+      this.$store.dispatch('SET_MOVIES', this.page);
+      // fetchMovies(this.page)
+      //   .then((movies) => {
+      //     this.movies = this.movies.concat(movies);
+      //   })
+      //   .catch((error) => {
+      //     this.error = error;
+      //   });
       this.page += 1;
     },
     reload() {

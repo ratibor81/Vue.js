@@ -39,17 +39,18 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 import { getItemById } from '../helpers';
 
 export default {
   name: 'MovieList',
-  props: {
-    movies: {
-      type: Array,
-      required: false,
-      default: null,
-    },
-  },
+  // props: {
+  //   movies: {
+  //     type: Array,
+  //     required: false,
+  //     default: null,
+  //   },
+  // },
   data() {
     return {
       snackbar: false,
@@ -66,6 +67,11 @@ export default {
     user() {
       return this.$store.getters.user;
     },
+    ...mapState(['movies']),
+  },
+  beforeDestroy() {
+    this.reset();
+    // this.$store.dispatch('RESET_MOVIES');
   },
   methods: {
     getInfo(movie) {
@@ -83,6 +89,7 @@ export default {
       if (this.watchlist.find(mov => mov.id === movie.id)) return true;
       return false;
     },
+    ...mapActions({ reset: 'RESET_MOVIES' }),
   },
 };
 </script>

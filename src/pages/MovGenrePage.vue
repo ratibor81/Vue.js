@@ -11,18 +11,18 @@
     />
     <movie-list
       v-if="!error"
-      :movies="movies"
     />
   </div>
 </template>
 <script>
-import Vue from 'vue';
-import infiniteScroll from 'vue-infinite-scroll';
-import { getMoviesByGenreId } from '../api/movies-api';
+// import Vue from 'vue';
+import { mapState } from 'vuex';
+// import infiniteScroll from 'vue-infinite-scroll';
+// import { getMoviesByGenreId } from '../api/movies-api';
 import MovieList from '../components/MovieList.vue';
 import ErrorHandler from '../components/ErrorHandler.vue';
 
-Vue.use(infiniteScroll);
+// Vue.use(infiniteScroll);
 
 export default {
   name: 'MovieGenrePage',
@@ -32,25 +32,30 @@ export default {
   },
   data() {
     return {
-      movies: [],
+      // movies: [],
       pageN: 1,
       error: null,
     };
   },
   computed: {
-    genreId() {
-      return this.$store.getters.genre;
-    },
+    ...mapState(['genreId']),
+    // genreId() {
+    //   return this.$store.getters.genre;
+    // },
   },
   methods: {
     loadMore() {
-      getMoviesByGenreId(this.genreId, this.pageN)
-        .then((movies) => {
-          this.movies = this.movies.concat(movies);
-        })
-        .catch((error) => {
-          this.error = error;
-        });
+      this.$store.dispatch('SET_BY_GENRE', {
+        id: this.genreId,
+        page: this.pageN,
+      });
+      // getMoviesByGenreId(this.genreId, this.pageN)
+      //   .then((movies) => {
+      //     this.movies = this.movies.concat(movies);
+      //   })
+      //   .catch((error) => {
+      //     this.error = error;
+      //   });
       this.pageN += 1;
     },
     reload() {

@@ -15,18 +15,18 @@
     />
     <movie-list
       v-if="!error"
-      :movies="movies"
     />
   </div>
 </template>
 <script>
-import Vue from 'vue';
-import infiniteScroll from 'vue-infinite-scroll';
+// import Vue from 'vue';
+// import infiniteScroll from 'vue-infinite-scroll';
+import { mapState } from 'vuex';
 import MovieList from '../components/MovieList.vue';
 import ErrorHandler from '../components/ErrorHandler.vue';
 import { searchMovie } from '../api/movies-api';
 
-Vue.use(infiniteScroll);
+// Vue.use(infiniteScroll);
 
 export default {
   name: 'SearchPage',
@@ -36,8 +36,9 @@ export default {
   },
   data() {
     return {
-      movies: [],
+      // movies: [],
       pageNum: 1,
+      // busy: false,
       error: null,
     };
   },
@@ -45,23 +46,33 @@ export default {
     title() {
       return this.$store.getters.title;
     },
+    ...mapState(['movies']),
   },
-  watch: {
-    title() {
-      this.goSearch();
-    },
-  },
+  // watch: {
+  //   title() {
+  //     this.goSearch();
+  //   },
+  // },
   methods: {
     loadMore() {
       if (this.title === '') return;
-      searchMovie(this.title, this.pageNum)
-        .then((movies) => {
-          this.movies = this.movies.concat(movies);
-        })
-        .catch((error) => {
-          this.error = error;
-        });
+      // if (this.movies.length < 20) return;
+      this.$store.dispatch('SEARCH_MOVIES', {
+        title: this.title,
+        page: this.pageNum,
+      });
+      // if (this.movies.length < 20) {
+      //   this.busy = true;
+      // }
+      // searchMovie(this.title, this.pageNum)
+      //   .then((movies) => {
+      //     this.movies = this.movies.concat(movies);
+      //   })
+      //   .catch((error) => {
+      //     this.error = error;
+      //   });
       this.pageNum += 1;
+      // this.busy = false;
     },
     goSearch() {
       this.error = null;
