@@ -4,7 +4,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import App from './components/App.vue';
 import router from './router';
-import store from './store';
+import store from './Store';
 import config from './firebase/firebaseConfig';
 
 Vue.use(Vuetify);
