@@ -44,13 +44,6 @@ import { getItemById } from '../helpers';
 
 export default {
   name: 'MovieList',
-  // props: {
-  //   movies: {
-  //     type: Array,
-  //     required: false,
-  //     default: null,
-  //   },
-  // },
   data() {
     return {
       snackbar: false,
@@ -61,17 +54,10 @@ export default {
     };
   },
   computed: {
-    watchlist() {
-      return this.$store.getters.watchlist;
-    },
-    user() {
-      return this.$store.getters.user;
-    },
-    ...mapState(['movies']),
+    ...mapState(['movies', 'watchlist', 'user']),
   },
   beforeDestroy() {
     this.reset();
-    // this.$store.dispatch('RESET_MOVIES');
   },
   methods: {
     getInfo(movie) {
@@ -79,17 +65,21 @@ export default {
     },
     watchlistHandler(movie) {
       if (getItemById(this.watchlist, movie.id)) {
-        this.$store.dispatch('REMOVE_FROM_WATCHLIST', movie.id);
+        this.removeCard(movie.id);
       } else {
         this.snackbar = true;
-        this.$store.dispatch('ADD_TO_WATCHLIST', movie);
+        this.addCard(movie);
       }
     },
     favHandler(movie) {
       if (this.watchlist.find(mov => mov.id === movie.id)) return true;
       return false;
     },
-    ...mapActions({ reset: 'RESET_MOVIES' }),
+    ...mapActions({
+      reset: 'RESET_MOVIES',
+      addCard: 'ADD_TO_WATCHLIST',
+      removeCard: 'REMOVE_FROM_WATCHLIST',
+    }),
   },
 };
 </script>

@@ -16,7 +16,7 @@
 </template>
 <script>
 // import Vue from 'vue';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 // import infiniteScroll from 'vue-infinite-scroll';
 // import { getMoviesByGenreId } from '../api/movies-api';
 import MovieList from '../components/MovieList.vue';
@@ -44,8 +44,9 @@ export default {
     // },
   },
   methods: {
+    ...mapActions({ setByGenre: 'SET_BY_GENRE' }),
     loadMore() {
-      this.$store.dispatch('SET_BY_GENRE', {
+      this.setByGenre({
         id: this.genreId,
         page: this.pageN,
       });

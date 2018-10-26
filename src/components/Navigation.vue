@@ -32,6 +32,7 @@
   </div>
 </template>
 <script>
+import { mapState, mapActions } from 'vuex';
 import firebase from 'firebase/app';
 import SearchForm from './SearchForm.vue';
 
@@ -41,14 +42,13 @@ export default {
     SearchForm,
   },
   computed: {
-    user() {
-      return this.$store.getters.user;
-    },
+    ...mapState(['user']),
   },
   methods: {
+    ...mapActions({ setUser: 'SET_USER' }),
     logOut() {
       firebase.auth().signOut();
-      this.$store.dispatch('SET_USER', null);
+      this.setUser(null);
       this.$router.push('/');
     },
   },

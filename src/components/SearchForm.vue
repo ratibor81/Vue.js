@@ -19,6 +19,8 @@
   </form>
 </template>
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'SearchForm',
 
@@ -29,8 +31,9 @@ export default {
   },
 
   methods: {
+    ...mapActions({ setQuery: 'SET_QUERY' }),
     getSearch() {
-      this.$store.dispatch('SET_QUERY', this.searchQuery);
+      this.setQuery(this.searchQuery);
       this.$router.push('search');
     },
   },

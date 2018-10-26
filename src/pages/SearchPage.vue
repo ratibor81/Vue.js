@@ -21,7 +21,7 @@
 <script>
 // import Vue from 'vue';
 // import infiniteScroll from 'vue-infinite-scroll';
-import { mapState } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 import MovieList from '../components/MovieList.vue';
 import ErrorHandler from '../components/ErrorHandler.vue';
 import { searchMovie } from '../api/movies-api';
@@ -36,29 +36,30 @@ export default {
   },
   data() {
     return {
-      // movies: [],
       pageNum: 1,
       // busy: false,
       error: null,
     };
   },
   computed: {
-    title() {
-      return this.$store.getters.title;
-    },
-    ...mapState(['movies']),
+    ...mapState(['movies', 'searchQuery']),
+    ...mapGetters(['title']),
   },
-  // watch: {
-  //   title() {
-  //     this.goSearch();
-  //   },
-  // },
+  // watch нужен для повторного поиска, если юзер на странице search
+  watch: {
+    title() {
+      this.reset();
+      this.pageNum = 1;
+      this.loadMore();
+    },
+  },
   methods: {
+    ...mapActions({ searchMovies: 'SEARCH_MOVIES', reset: 'RESET_MOVIES' }),
     loadMore() {
-      if (this.title === '') return;
+      if (this.searchQuery === '') return;
       // if (this.movies.length < 20) return;
-      this.$store.dispatch('SEARCH_MOVIES', {
-        title: this.title,
+      this.searchMovies({
+        title: this.searchQuery,
         page: this.pageNum,
       });
       // if (this.movies.length < 20) {

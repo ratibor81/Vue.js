@@ -1,20 +1,20 @@
 <template>
   <div class="WatchListPage top">
     <h2
-      v-if="movies.length === 0"
+      v-if="watchlist.length === 0"
       class="EmptyMessage"
     >
       There&apos;s nothing on your list yet.
     </h2>
     <div
-      v-if="movies.length > 0"
+      v-if="watchlist.length > 0"
       class="list"
     >
       <ul
         class="Ul"
       >
         <li
-          v-for="(movie, index) in movies"
+          v-for="(movie, index) in watchlist"
           :key="index"
           class="List-item"
         >
@@ -28,6 +28,7 @@
 
 </template>
 <script>
+import { mapState } from 'vuex';
 import WatchlistCard from '../components/WatchlistCard.vue';
 
 export default {
@@ -36,9 +37,7 @@ export default {
     WatchlistCard,
   },
   computed: {
-    movies() {
-      return this.$store.getters.watchlist;
-    },
+    ...mapState(['watchlist']),
   },
 };
 </script>

@@ -17,7 +17,7 @@
 
 <script>
 // import Vue from 'vue';
-// import { mapState } from 'vuex';
+import { mapActions } from 'vuex';
 // import infiniteScroll from 'vue-infinite-scroll';
 // import { fetchMovies } from '../api/movies-api';
 import MovieList from '../components/MovieList.vue';
@@ -48,8 +48,10 @@ export default {
   //   this.$store.dispatch('RESET_MOVIES');
   // },
   methods: {
+    ...mapActions({ setMovies: 'SET_MOVIES' }),
     loadMore() {
-      this.$store.dispatch('SET_MOVIES', this.page);
+      this.setMovies(this.page);
+      // this.$store.dispatch('SET_MOVIES', this.page);
       // fetchMovies(this.page)
       //   .then((movies) => {
       //     this.movies = this.movies.concat(movies);
