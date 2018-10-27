@@ -8,8 +8,25 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import online from '@deveodk/vue-online';
+import VueToastr from '@deveodk/vue-toastr';
+import driver from '@deveodk/vue-online/drivers/deveoToastr';
 import NavLinks from './Navigation.vue';
 import GoTopButton from './GoTopButton.vue';
+import '@deveodk/vue-toastr/dist/@deveodk/vue-toastr.css';
+
+Vue.use(VueToastr, {
+  defaultPosition: 'toast-top-full-width',
+  defaultTimeout: 4000,
+});
+Vue.use(online, {
+  notifier: driver,
+  defaultOnlineTitle: 'Online',
+  defaultOnlineMessage: 'You are online',
+  defaultOfflineTitle: 'Offline',
+  defaultOffilneMessage: 'You are offline',
+});
 
 export default {
   name: 'App',
