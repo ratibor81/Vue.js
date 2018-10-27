@@ -35,7 +35,7 @@ export default {
     ...mapState(['error']),
   },
   methods: {
-    ...mapActions({ setMovies: 'SET_MOVIES', resetError: 'RESET_ERROR' }),
+    ...mapActions(['setMovies', 'resetError']),
     loadMore() {
       this.setMovies(this.page);
       this.page += 1;

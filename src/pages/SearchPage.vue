@@ -47,11 +47,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions({
-      searchMovies: 'SEARCH_MOVIES',
-      reset: 'RESET_MOVIES',
-      resetError: 'RESET_ERROR',
-    }),
+    ...mapActions(['searchMovies', 'reset', 'resetError']),
     loadMore() {
       if (this.searchQuery === '') return;
       this.searchMovies({

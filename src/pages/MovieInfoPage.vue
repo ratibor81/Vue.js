@@ -118,14 +118,14 @@ export default {
     this.fetchData();
   },
   methods: {
-    ...mapActions({
-      setGenre: 'SET_GENRE',
-      removeCard: 'REMOVE_FROM_WATCHLIST',
-      addCard: 'ADD_TO_WATCHLIST',
-      setData: 'SET_MOVIE_DATA',
-      setTrailer: 'SET_MOVIE_TRAILER',
-      resetError: 'RESET_ERROR',
-    }),
+    ...mapActions([
+      'setGenre',
+      'removeCard',
+      'addCard',
+      'setData',
+      'setTrailer',
+      'resetError',
+    ]),
     goGenrePage(genres) {
       this.setGenre(String(genres.id));
       this.$router.push('/genres');

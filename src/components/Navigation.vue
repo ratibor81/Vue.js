@@ -45,7 +45,7 @@ export default {
     ...mapState(['user']),
   },
   methods: {
-    ...mapActions({ setUser: 'SET_USER' }),
+    ...mapActions(['setUser']),
     logOut() {
       firebase.auth().signOut();
       this.setUser(null);

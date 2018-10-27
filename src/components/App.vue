@@ -18,7 +18,7 @@ import '@deveodk/vue-toastr/dist/@deveodk/vue-toastr.css';
 
 Vue.use(VueToastr, {
   defaultPosition: 'toast-top-full-width',
-  defaultTimeout: 4000,
+  timeout: 2000,
 });
 Vue.use(online, {
   notifier: driver,
@@ -61,5 +61,8 @@ body {
   height: 55px;
   background-color: #fff;
   z-index: 999;
+}
+.toast-container {
+  text-align: center !important;
 }
 </style>

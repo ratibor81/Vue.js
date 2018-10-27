@@ -7,13 +7,13 @@ import {
 } from '../api/movies-api';
 
 const actions = {
-  RESET_ERROR({ commit }) {
+  resetError({ commit }) {
     commit('RESET_ERROR');
   },
-  RESET_MOVIES({ commit }) {
+  reset({ commit }) {
     commit('RESET_MOVIES');
   },
-  SET_MOVIE_DATA(context, id) {
+  setData(context, id) {
     searchById(id)
       .then((movie) => {
         context.commit('SET_MOVIE_DATA', movie);
@@ -22,7 +22,7 @@ const actions = {
         context.commit('SET_ERROR', err);
       });
   },
-  SET_MOVIE_TRAILER(context, id) {
+  setTrailer(context, id) {
     getVideos(id)
       .then((trailer) => {
         context.commit('SET_MOVIE_TRAILER', trailer);
@@ -31,7 +31,7 @@ const actions = {
         context.commit('SET_ERROR', err);
       });
   },
-  SET_MOVIES(context, page) {
+  setMovies(context, page) {
     fetchMovies(page)
       .then((movies) => {
         context.commit('SET_MOVIES', movies);
@@ -40,7 +40,7 @@ const actions = {
         context.commit('SET_ERROR', err);
       });
   },
-  SET_BY_GENRE(context, { id, page }) {
+  setByGenre(context, { id, page }) {
     getMoviesByGenreId(id, page)
       .then((movies) => {
         context.commit('SET_MOVIES', movies);
@@ -49,7 +49,7 @@ const actions = {
         context.commit('SET_ERROR', err);
       });
   },
-  SEARCH_MOVIES(context, { title, page }) {
+  searchMovies(context, { title, page }) {
     searchMovie(title, page)
       .then((movies) => {
         context.commit('SET_MOVIES', movies);
@@ -58,19 +58,19 @@ const actions = {
         context.commit('SET_ERROR', err);
       });
   },
-  SET_USER({ commit }, user) {
+  setUser({ commit }, user) {
     commit('SET_USER', user);
   },
-  SET_QUERY({ commit }, title) {
+  setQuery({ commit }, title) {
     commit('SET_QUERY', title);
   },
-  SET_GENRE({ commit }, genre) {
+  setGenre({ commit }, genre) {
     commit('SET_GENRE', genre);
   },
-  ADD_TO_WATCHLIST({ commit }, movie) {
+  addCard({ commit }, movie) {
     commit('ADD_TO_LIST', movie);
   },
-  REMOVE_FROM_WATCHLIST({ commit }, id) {
+  removeCard({ commit }, id) {
     commit('REMOVE_FROM_LIST', id);
   },
 };

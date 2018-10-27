@@ -60,11 +60,7 @@ export default {
     this.reset();
   },
   methods: {
-    ...mapActions({
-      reset: 'RESET_MOVIES',
-      addCard: 'ADD_TO_WATCHLIST',
-      removeCard: 'REMOVE_FROM_WATCHLIST',
-    }),
+    ...mapActions(['reset', 'addCard', 'removeCard']),
     getInfo(movie) {
       this.$router.push(`movies/${movie.id}`);
     },

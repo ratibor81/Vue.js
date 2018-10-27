@@ -36,7 +36,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions({ removeCard: 'REMOVE_FROM_WATCHLIST' }),
+    ...mapActions(['removeCard']),
     getInfo(movie) {
       this.$router.push(`movies/${movie.id}`);
     },

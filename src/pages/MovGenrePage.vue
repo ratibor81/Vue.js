@@ -34,7 +34,7 @@ export default {
     ...mapState(['genreId', 'error']),
   },
   methods: {
-    ...mapActions({ setByGenre: 'SET_BY_GENRE', resetErr: 'RESET_ERROR' }),
+    ...mapActions(['setByGenre', 'resetError']),
     loadMore() {
       this.setByGenre({
         id: this.genreId,
@@ -43,7 +43,7 @@ export default {
       this.pageN += 1;
     },
     reload() {
-      this.resetErr();
+      this.resetError();
       this.loadMore();
     },
   },

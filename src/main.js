@@ -26,7 +26,7 @@ export default new Vue({
     });
   },
   methods: {
-    ...mapActions({ setUser: 'SET_USER' }),
+    ...mapActions(['setUser']),
   },
   render: h => h(App),
 });
