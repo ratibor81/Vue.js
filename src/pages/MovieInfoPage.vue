@@ -81,8 +81,8 @@
   </div>
 </template>
 <script>
+import { mapState, mapActions, mapGetters } from 'vuex';
 import { ContentLoader } from 'vue-content-loader';
-import { searchById, getVideos } from '../api/movies-api';
 import { getItemById } from '../helpers';
 import ErrorHandler from '../components/ErrorHandler.vue';
 
@@ -100,9 +100,8 @@ export default {
   },
   data() {
     return {
-      movie: null,
       error: null,
-      trailer: '',
+      // trailer: '',
       snackbar: false,
       y: 'bottom',
       x: 'left',
@@ -111,27 +110,30 @@ export default {
     };
   },
   computed: {
-    watchlist() {
-      return this.$store.getters.watchlist;
-    },
-    user() {
-      return this.$store.getters.user;
-    },
+    ...mapState(['watchlist', 'user']),
+    ...mapGetters(['movie', 'trailer']),
   },
   mounted() {
     this.fetchData();
   },
   methods: {
+    ...mapActions({
+      setGenre: 'SET_GENRE',
+      removeCard: 'REMOVE_FROM_WATCHLIST',
+      addCard: 'ADD_TO_WATCHLIST',
+      setData: 'SET_MOVIE_DATA',
+      setTrailer: 'SET_MOVIE_TRAILER',
+    }),
     goGenrePage(genres) {
-      this.$store.dispatch('SET_GENRE', String(genres.id));
+      this.setGenre(String(genres.id));
       this.$router.push('/genres');
     },
     watchlistHandler(movie) {
       if (getItemById(this.watchlist, movie.id)) {
-        this.$store.dispatch('REMOVE_FROM_WATCHLIST', movie.id);
+        this.removeCard(movie.id);
       } else {
         this.snackbar = true;
-        this.$store.dispatch('ADD_TO_WATCHLIST', movie);
+        this.addCard(movie);
       }
     },
     favHandler(movie) {
@@ -139,21 +141,24 @@ export default {
       return false;
     },
     fetchData() {
-      this.error = null;
-      searchById(this.$route.params.id)
-        .then((movie) => {
-          this.movie = movie;
-        })
-        .catch((error) => {
-          this.error = error;
-        });
-      getVideos(this.$route.params.id)
-        .then((trailer) => {
-          this.trailer = trailer;
-        })
-        .catch((error) => {
-          this.error = error;
-        });
+      const { id } = this.$route.params;
+      this.setData(id);
+      // this.error = null;
+      // searchById(this.$route.params.id)
+      //   .then((movie) => {
+      //     this.movie = movie;
+      //   })
+      //   .catch((error) => {
+      //     this.error = error;
+      //   });
+      this.setTrailer(id);
+      // getVideos(this.$route.params.id)
+      //   .then((trailer) => {
+      //     this.trailer = trailer;
+      //   })
+      //   .catch((error) => {
+      //     this.error = error;
+      //   });
     },
   },
 };

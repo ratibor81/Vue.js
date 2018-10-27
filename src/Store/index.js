@@ -5,6 +5,8 @@ import {
   fetchMovies,
   getMoviesByGenreId,
   searchMovie,
+  searchById,
+  getVideos,
 } from '../api/movies-api';
 
 Vue.use(Vuex);
@@ -23,6 +25,10 @@ const store = new Vuex.Store({
     watchlist: [],
     genreId: '',
     user: null,
+    movieCard: {
+      data: null,
+      trailer: null,
+    },
   },
   getters: {
     // movies(state) {
@@ -31,15 +37,21 @@ const store = new Vuex.Store({
     title(state) {
       return state.searchQuery;
     },
-    watchlist(state) {
-      return state.watchlist;
+    movie(state) {
+      return state.movieCard.data;
     },
+    trailer(state) {
+      return state.movieCard.trailer;
+    },
+    // watchlist(state) {
+    //   return state.watchlist;
+    // },
     // genre(state) {
     //   return state.genreId;
     // },
-    user(state) {
-      return state.user;
-    },
+    // user(state) {
+    //   return state.user;
+    // },
   },
   mutations: {
     RESET_MOVIES() {
@@ -65,10 +77,26 @@ const store = new Vuex.Store({
     SET_MOVIES(state, payload) {
       this.state.movies = this.state.movies.concat(payload);
     },
+    SET_MOVIE_DATA(state, payload) {
+      this.state.movieCard.data = payload;
+    },
+    SET_MOVIE_TRAILER(state, payload) {
+      this.state.movieCard.trailer = payload;
+    },
   },
   actions: {
     RESET_MOVIES({ commit }) {
       commit('RESET_MOVIES');
+    },
+    SET_MOVIE_DATA(context, id) {
+      searchById(id).then((movie) => {
+        context.commit('SET_MOVIE_DATA', movie);
+      });
+    },
+    SET_MOVIE_TRAILER(context, id) {
+      getVideos(id).then((trailer) => {
+        context.commit('SET_MOVIE_TRAILER', trailer);
+      });
     },
     SET_MOVIES(context, page) {
       fetchMovies(page).then((movies) => {
