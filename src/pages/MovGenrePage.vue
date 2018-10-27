@@ -15,14 +15,9 @@
   </div>
 </template>
 <script>
-// import Vue from 'vue';
 import { mapState, mapActions } from 'vuex';
-// import infiniteScroll from 'vue-infinite-scroll';
-// import { getMoviesByGenreId } from '../api/movies-api';
 import MovieList from '../components/MovieList.vue';
 import ErrorHandler from '../components/ErrorHandler.vue';
-
-// Vue.use(infiniteScroll);
 
 export default {
   name: 'MovieGenrePage',
@@ -32,35 +27,24 @@ export default {
   },
   data() {
     return {
-      // movies: [],
       pageN: 1,
-      error: null,
     };
   },
   computed: {
-    ...mapState(['genreId']),
-    // genreId() {
-    //   return this.$store.getters.genre;
-    // },
+    ...mapState(['genreId', 'error']),
   },
   methods: {
-    ...mapActions({ setByGenre: 'SET_BY_GENRE' }),
+    ...mapActions({ setByGenre: 'SET_BY_GENRE', resetErr: 'RESET_ERROR' }),
     loadMore() {
       this.setByGenre({
         id: this.genreId,
         page: this.pageN,
       });
-      // getMoviesByGenreId(this.genreId, this.pageN)
-      //   .then((movies) => {
-      //     this.movies = this.movies.concat(movies);
-      //   })
-      //   .catch((error) => {
-      //     this.error = error;
-      //   });
       this.pageN += 1;
     },
     reload() {
-      this.$router.go(this.$router.currentRoute);
+      this.resetErr();
+      this.loadMore();
     },
   },
 };

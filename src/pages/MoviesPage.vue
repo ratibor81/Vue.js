@@ -16,14 +16,9 @@
 </template>
 
 <script>
-// import Vue from 'vue';
-import { mapActions } from 'vuex';
-// import infiniteScroll from 'vue-infinite-scroll';
-// import { fetchMovies } from '../api/movies-api';
+import { mapActions, mapState } from 'vuex';
 import MovieList from '../components/MovieList.vue';
 import ErrorHandler from '../components/ErrorHandler.vue';
-
-// Vue.use(infiniteScroll);
 
 export default {
   name: 'MoviesPage',
@@ -33,36 +28,21 @@ export default {
   },
   data() {
     return {
-      // movies: [],
       page: 1,
-      error: null,
     };
   },
-
-  // computed: {
-  //   movies() {
-  //     return this.$store.getters.movies;
-  //   },
-  // },
-  // beforeDestroy() {
-  //   this.$store.dispatch('RESET_MOVIES');
-  // },
+  computed: {
+    ...mapState(['error']),
+  },
   methods: {
-    ...mapActions({ setMovies: 'SET_MOVIES' }),
+    ...mapActions({ setMovies: 'SET_MOVIES', resetError: 'RESET_ERROR' }),
     loadMore() {
       this.setMovies(this.page);
-      // this.$store.dispatch('SET_MOVIES', this.page);
-      // fetchMovies(this.page)
-      //   .then((movies) => {
-      //     this.movies = this.movies.concat(movies);
-      //   })
-      //   .catch((error) => {
-      //     this.error = error;
-      //   });
       this.page += 1;
     },
     reload() {
-      this.$router.go(this.$router.currentRoute);
+      this.resetError();
+      this.loadMore();
     },
   },
 };

@@ -103,7 +103,6 @@ export default {
   },
   data() {
     return {
-      error: null,
       snackbar: false,
       y: 'bottom',
       x: 'left',
@@ -112,7 +111,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['watchlist', 'user']),
+    ...mapState(['watchlist', 'user', 'error']),
     ...mapGetters(['movie', 'trailer']),
   },
   mounted() {
@@ -125,6 +124,7 @@ export default {
       addCard: 'ADD_TO_WATCHLIST',
       setData: 'SET_MOVIE_DATA',
       setTrailer: 'SET_MOVIE_TRAILER',
+      resetError: 'RESET_ERROR',
     }),
     goGenrePage(genres) {
       this.setGenre(String(genres.id));
@@ -144,23 +144,9 @@ export default {
     },
     fetchData() {
       const { id } = this.$route.params;
+      this.resetError();
       this.setData(id);
-      // this.error = null;
-      // searchById(this.$route.params.id)
-      //   .then((movie) => {
-      //     this.movie = movie;
-      //   })
-      //   .catch((error) => {
-      //     this.error = error;
-      //   });
       this.setTrailer(id);
-      // getVideos(this.$route.params.id)
-      //   .then((trailer) => {
-      //     this.trailer = trailer;
-      //   })
-      //   .catch((error) => {
-      //     this.error = error;
-      //   });
     },
   },
 };
