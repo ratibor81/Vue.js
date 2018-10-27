@@ -57,7 +57,10 @@
             {{ production_companies.name }}
           </li>
         </ul>
-        <div class="trailer_container">
+        <div
+          v-if="trailer"
+          class="trailer_container"
+        >
           <div class="trailer_frame">
             <iframe
               title="trailer"
@@ -101,7 +104,6 @@ export default {
   data() {
     return {
       error: null,
-      // trailer: '',
       snackbar: false,
       y: 'bottom',
       x: 'left',

@@ -1,13 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VuexPersist from 'vuex-persist';
-import {
-  fetchMovies,
-  getMoviesByGenreId,
-  searchMovie,
-  searchById,
-  getVideos,
-} from '../api/movies-api';
+import actions from './actions';
 
 Vue.use(Vuex);
 
@@ -29,11 +23,9 @@ const store = new Vuex.Store({
       data: null,
       trailer: null,
     },
+    error: null,
   },
   getters: {
-    // movies(state) {
-    //   return state.movies;
-    // },
     title(state) {
       return state.searchQuery;
     },
@@ -43,17 +35,14 @@ const store = new Vuex.Store({
     trailer(state) {
       return state.movieCard.trailer;
     },
-    // watchlist(state) {
-    //   return state.watchlist;
-    // },
-    // genre(state) {
-    //   return state.genreId;
-    // },
-    // user(state) {
-    //   return state.user;
-    // },
   },
   mutations: {
+    SET_ERROR(state, payload) {
+      this.state.error = payload;
+    },
+    RESET_ERROR() {
+      this.state.error = null;
+    },
     RESET_MOVIES() {
       this.state.movies = [];
     },
@@ -84,51 +73,7 @@ const store = new Vuex.Store({
       this.state.movieCard.trailer = payload;
     },
   },
-  actions: {
-    RESET_MOVIES({ commit }) {
-      commit('RESET_MOVIES');
-    },
-    SET_MOVIE_DATA(context, id) {
-      searchById(id).then((movie) => {
-        context.commit('SET_MOVIE_DATA', movie);
-      });
-    },
-    SET_MOVIE_TRAILER(context, id) {
-      getVideos(id).then((trailer) => {
-        context.commit('SET_MOVIE_TRAILER', trailer);
-      });
-    },
-    SET_MOVIES(context, page) {
-      fetchMovies(page).then((movies) => {
-        context.commit('SET_MOVIES', movies);
-      });
-    },
-    SET_BY_GENRE(context, { id, page }) {
-      getMoviesByGenreId(id, page).then((movies) => {
-        context.commit('SET_MOVIES', movies);
-      });
-    },
-    SEARCH_MOVIES(context, { title, page }) {
-      searchMovie(title, page).then((movies) => {
-        context.commit('SET_MOVIES', movies);
-      });
-    },
-    SET_USER({ commit }, user) {
-      commit('SET_USER', user);
-    },
-    SET_QUERY({ commit }, title) {
-      commit('SET_QUERY', title);
-    },
-    SET_GENRE({ commit }, genre) {
-      commit('SET_GENRE', genre);
-    },
-    ADD_TO_WATCHLIST({ commit }, movie) {
-      commit('ADD_TO_LIST', movie);
-    },
-    REMOVE_FROM_WATCHLIST({ commit }, id) {
-      commit('REMOVE_FROM_LIST', id);
-    },
-  },
+  actions,
   plugins: [vuexLocal.plugin],
 });
 
