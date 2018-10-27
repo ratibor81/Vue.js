@@ -13,6 +13,9 @@ const actions = {
   reset({ commit }) {
     commit('RESET_MOVIES');
   },
+  resetCard({ commit }) {
+    commit('RESET_CARD');
+  },
   setData(context, id) {
     searchById(id)
       .then((movie) => {

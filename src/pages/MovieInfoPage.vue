@@ -117,6 +117,9 @@ export default {
   mounted() {
     this.fetchData();
   },
+  beforeDestroy() {
+    this.resetCard();
+  },
   methods: {
     ...mapActions([
       'setGenre',
@@ -125,6 +128,7 @@ export default {
       'setData',
       'setTrailer',
       'resetError',
+      'resetCard',
     ]),
     goGenrePage(genres) {
       this.setGenre(String(genres.id));

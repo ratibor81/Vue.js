@@ -34,7 +34,7 @@ export default {
     ...mapActions(['setQuery']),
     getSearch() {
       this.setQuery(this.searchQuery);
-      this.$router.push('search');
+      this.$router.push('/search');
     },
   },
 };
