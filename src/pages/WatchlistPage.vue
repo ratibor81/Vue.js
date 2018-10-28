@@ -10,19 +10,22 @@
       v-if="watchlist.length > 0"
       class="list"
     >
-      <ul
+      <transition-group
+        name="bounce"
         class="Ul"
+        tag="ul"
       >
+        <!-- <ul class="Ul"> -->
         <li
-          v-for="(movie, index) in watchlist"
-          :key="index"
+          v-for="(movie) in watchlist"
+          :key="movie.id"
           class="List-item"
         >
-          <watchlist-card
-            :movie="movie"
-          />
+          <watchlist-card :movie="movie" />
         </li>
-      </ul>
+        <!-- </ul> -->
+      </transition-group>
+
     </div>
   </div>
 
@@ -94,6 +97,23 @@ export default {
     &:nth-child(5n) {
       margin-right: 0;
     }
+  }
+}
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 </style>

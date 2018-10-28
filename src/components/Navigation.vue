@@ -28,7 +28,6 @@
       :src="user.photoURL"
       alt="profile foto"
     >
-
   </div>
 </template>
 <script>
