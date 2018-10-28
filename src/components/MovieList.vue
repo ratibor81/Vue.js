@@ -81,7 +81,7 @@ export default {
 </script>
 <style lang="scss">
 .List {
-  text-align: left;
+  // text-align: left;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -90,7 +90,7 @@ export default {
 }
 .Card {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.22);
-  width: 13%;
+  width: 45%;
   border-radius: 10px;
   margin-bottom: 15px;
   overflow: hidden;
@@ -98,6 +98,9 @@ export default {
   position: relative;
   transition: 0.3s ease-out;
   animation: open-card 0.3s;
+  @media (min-width: 768px) {
+    width: 13%;
+  }
   &:hover {
     transform: scale(1.05);
     transition: 0.3s ease-in-out;

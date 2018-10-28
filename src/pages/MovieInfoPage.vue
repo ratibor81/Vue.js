@@ -14,6 +14,14 @@
       class="content"
     >
       <div
+        class="poster_min"
+      >
+        <img
+          :src="`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`"
+          alt="poster"
+        >
+      </div>
+      <div
         class="poster"
       >
         <img
@@ -165,13 +173,30 @@ export default {
   border: 1px solid lightgrey;
   background-color: #fff;
   &_right {
-    width: 65%;
+    width: 100%;
+    @media (min-width: 768px) {
+      width: 65%;
+    }
   }
+  position: relative;
 }
 .poster {
-  width: 33%;
+  display: none;
+  @media (min-width: 768px) {
+    display: block;
+    width: 33%;
+    img {
+      width: 100%;
+    }
+  }
+}
+.poster_min {
+  width: 100%;
   img {
     width: 100%;
+  }
+  @media (min-width: 768px) {
+    display: none;
   }
 }
 .head_title {
@@ -209,11 +234,17 @@ export default {
   }
 }
 .fav-mark {
-  position: static !important;
+  top: 25px;
+  right: 25px;
+  @media (min-width: 768px) {
+    position: static !important;
+  }
 }
 .trailer_container {
   width: 100%;
-  padding: 0 120px;
+  @media (min-width: 768px) {
+    padding: 0 120px;
+  }
 }
 .trailer_frame {
   border: 2px solid #979797;

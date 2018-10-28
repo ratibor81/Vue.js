@@ -41,6 +41,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss" scoped>
 .list {
   padding: 5px;
@@ -53,24 +54,46 @@ export default {
   justify-content: center;
 }
 .Ul {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
   list-style: none;
+  width: 100%;
+  display: block;
+  padding-left: 0 !important;
+  @media (min-width: 768px) {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
 .EmptyMessage {
   color: #0277bd;
 }
 .List-item {
-  width: 19.2%;
   text-align: left;
+  width: 100%;
   margin-bottom: 10px;
-  margin-right: 10px;
-  &:nth-last-child(-n + 5) {
+  &:last-child {
     margin-bottom: 0;
   }
-  &:nth-child(5n) {
-    margin-right: 0;
+  @media (min-width: 768px) {
+    margin-right: 10px;
+    width: 32%;
+    &:nth-last-child(-n + 3) {
+      margin-bottom: 0;
+    }
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+  }
+  @media (min-width: 1200px) {
+    width: 19.2%;
+    &:nth-last-child(-n + 5) {
+      margin-bottom: 0;
+    }
+    &:nth-child(3n) {
+      margin-right: 10px;
+    }
+    &:nth-child(5n) {
+      margin-right: 0;
+    }
   }
 }
 </style>

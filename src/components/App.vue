@@ -22,9 +22,9 @@ Vue.use(VueToastr, {
 });
 Vue.use(online, {
   notifier: driver,
-  defaultOnlineTitle: 'Online',
+  defaultOnlineTitle: 'Connected',
   defaultOnlineMessage: 'You are online',
-  defaultOfflineTitle: 'Offline',
+  defaultOfflineTitle: 'Disconnected',
   defaultOffilneMessage: 'You are offline',
 });
 
@@ -37,7 +37,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 * {
   margin: 0;
   padding: 0;
@@ -45,13 +45,17 @@ export default {
 }
 body {
   font-family: 'Roboto', sans-serif;
+  min-width: 320px;
 }
 #app {
   text-align: center;
   padding: 0 15px;
 }
 .top {
-  padding-top: 65px;
+  padding-top: 95px;
+  @media (min-width: 629px) {
+    padding-top: 65px;
+  }
 }
 .hidden {
   position: fixed;

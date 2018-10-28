@@ -74,7 +74,10 @@ export default {
   margin: 0 !important;
 }
 .search-panel {
-  position: absolute;
-  right: 10%;
+  position: static;
+  @media (min-width: 768px) {
+    position: absolute;
+    right: 10%;
+  }
 }
 </style>
