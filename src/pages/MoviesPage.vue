@@ -11,20 +11,14 @@
     />
     <movie-list
       v-if="!error"
-      :movies="movies"
     />
   </div>
 </template>
 
-
 <script>
-import Vue from 'vue';
-import infiniteScroll from 'vue-infinite-scroll';
-import { fetchMovies } from '../api/movies-api';
+import { mapActions, mapState } from 'vuex';
 import MovieList from '../components/MovieList.vue';
 import ErrorHandler from '../components/ErrorHandler.vue';
-
-Vue.use(infiniteScroll);
 
 export default {
   name: 'MoviesPage',
@@ -34,24 +28,21 @@ export default {
   },
   data() {
     return {
-      movies: [],
       page: 1,
-      error: null,
     };
   },
+  computed: {
+    ...mapState(['error']),
+  },
   methods: {
+    ...mapActions(['setMovies', 'resetError']),
     loadMore() {
-      fetchMovies(this.page)
-        .then((movies) => {
-          this.movies = this.movies.concat(movies);
-        })
-        .catch((error) => {
-          this.error = error;
-        });
+      this.setMovies(this.page);
       this.page += 1;
     },
     reload() {
-      this.$router.go(this.$router.currentRoute);
+      this.resetError();
+      this.loadMore();
     },
   },
 };

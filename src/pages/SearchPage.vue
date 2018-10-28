@@ -15,18 +15,13 @@
     />
     <movie-list
       v-if="!error"
-      :movies="movies"
     />
   </div>
 </template>
 <script>
-import Vue from 'vue';
-import infiniteScroll from 'vue-infinite-scroll';
+import { mapState, mapActions, mapGetters } from 'vuex';
 import MovieList from '../components/MovieList.vue';
 import ErrorHandler from '../components/ErrorHandler.vue';
-import { searchMovie } from '../api/movies-api';
-
-Vue.use(infiniteScroll);
 
 export default {
   name: 'SearchPage',
@@ -36,42 +31,34 @@ export default {
   },
   data() {
     return {
-      movies: [],
       pageNum: 1,
-      error: null,
     };
   },
   computed: {
-    title() {
-      return this.$store.getters.title;
-    },
+    ...mapState(['movies', 'searchQuery', 'error']),
+    ...mapGetters(['title']),
   },
+  // watch нужен для повторного поиска, если юзер на странице search
   watch: {
     title() {
-      this.goSearch();
+      this.reset();
+      this.pageNum = 1;
+      this.loadMore();
     },
   },
   methods: {
+    ...mapActions(['searchMovies', 'reset', 'resetError']),
     loadMore() {
-      if (this.title === '') return;
-      searchMovie(this.title, this.pageNum)
-        .then((movies) => {
-          this.movies = this.movies.concat(movies);
-        })
-        .catch((error) => {
-          this.error = error;
-        });
+      if (this.searchQuery === '') return;
+      this.searchMovies({
+        title: this.searchQuery,
+        page: this.pageNum,
+      });
       this.pageNum += 1;
     },
     goSearch() {
-      this.error = null;
-      searchMovie(this.title)
-        .then((movies) => {
-          this.movies = movies;
-        })
-        .catch((error) => {
-          this.error = error;
-        });
+      this.resetError();
+      this.loadMore();
     },
   },
 };

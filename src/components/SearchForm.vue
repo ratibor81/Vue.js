@@ -19,6 +19,8 @@
   </form>
 </template>
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'SearchForm',
 
@@ -29,9 +31,10 @@ export default {
   },
 
   methods: {
+    ...mapActions(['setQuery']),
     getSearch() {
-      this.$store.dispatch('SET_QUERY', this.searchQuery);
-      this.$router.push('search');
+      this.setQuery(this.searchQuery);
+      this.$router.push('/search');
     },
   },
 };
@@ -71,7 +74,10 @@ export default {
   margin: 0 !important;
 }
 .search-panel {
-  position: absolute;
-  right: 10%;
+  position: static;
+  @media (min-width: 768px) {
+    position: absolute;
+    right: 10%;
+  }
 }
 </style>

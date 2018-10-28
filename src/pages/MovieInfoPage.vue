@@ -14,6 +14,14 @@
       class="content"
     >
       <div
+        class="poster_min"
+      >
+        <img
+          :src="`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`"
+          alt="poster"
+        >
+      </div>
+      <div
         class="poster"
       >
         <img
@@ -57,7 +65,10 @@
             {{ production_companies.name }}
           </li>
         </ul>
-        <div class="trailer_container">
+        <div
+          v-if="trailer"
+          class="trailer_container"
+        >
           <div class="trailer_frame">
             <iframe
               title="trailer"
@@ -81,8 +92,8 @@
   </div>
 </template>
 <script>
+import { mapState, mapActions, mapGetters } from 'vuex';
 import { ContentLoader } from 'vue-content-loader';
-import { searchById, getVideos } from '../api/movies-api';
 import { getItemById } from '../helpers';
 import ErrorHandler from '../components/ErrorHandler.vue';
 
@@ -100,9 +111,6 @@ export default {
   },
   data() {
     return {
-      movie: null,
-      error: null,
-      trailer: '',
       snackbar: false,
       y: 'bottom',
       x: 'left',
@@ -111,27 +119,35 @@ export default {
     };
   },
   computed: {
-    watchlist() {
-      return this.$store.getters.watchlist;
-    },
-    user() {
-      return this.$store.getters.user;
-    },
+    ...mapState(['watchlist', 'user', 'error']),
+    ...mapGetters(['movie', 'trailer']),
   },
   mounted() {
     this.fetchData();
   },
+  beforeDestroy() {
+    this.resetCard();
+  },
   methods: {
+    ...mapActions([
+      'setGenre',
+      'removeCard',
+      'addCard',
+      'setData',
+      'setTrailer',
+      'resetError',
+      'resetCard',
+    ]),
     goGenrePage(genres) {
-      this.$store.dispatch('SET_GENRE', String(genres.id));
+      this.setGenre(String(genres.id));
       this.$router.push('/genres');
     },
     watchlistHandler(movie) {
       if (getItemById(this.watchlist, movie.id)) {
-        this.$store.dispatch('REMOVE_FROM_WATCHLIST', movie.id);
+        this.removeCard(movie.id);
       } else {
         this.snackbar = true;
-        this.$store.dispatch('ADD_TO_WATCHLIST', movie);
+        this.addCard(movie);
       }
     },
     favHandler(movie) {
@@ -139,21 +155,10 @@ export default {
       return false;
     },
     fetchData() {
-      this.error = null;
-      searchById(this.$route.params.id)
-        .then((movie) => {
-          this.movie = movie;
-        })
-        .catch((error) => {
-          this.error = error;
-        });
-      getVideos(this.$route.params.id)
-        .then((trailer) => {
-          this.trailer = trailer;
-        })
-        .catch((error) => {
-          this.error = error;
-        });
+      const { id } = this.$route.params;
+      this.resetError();
+      this.setData(id);
+      this.setTrailer(id);
     },
   },
 };
@@ -168,13 +173,30 @@ export default {
   border: 1px solid lightgrey;
   background-color: #fff;
   &_right {
-    width: 65%;
+    width: 100%;
+    @media (min-width: 768px) {
+      width: 65%;
+    }
   }
+  position: relative;
 }
 .poster {
-  width: 33%;
+  display: none;
+  @media (min-width: 768px) {
+    display: block;
+    width: 33%;
+    img {
+      width: 100%;
+    }
+  }
+}
+.poster_min {
+  width: 100%;
   img {
     width: 100%;
+  }
+  @media (min-width: 768px) {
+    display: none;
   }
 }
 .head_title {
@@ -212,11 +234,17 @@ export default {
   }
 }
 .fav-mark {
-  position: static !important;
+  top: 25px;
+  right: 25px;
+  @media (min-width: 768px) {
+    position: static !important;
+  }
 }
 .trailer_container {
   width: 100%;
-  padding: 0 120px;
+  @media (min-width: 768px) {
+    padding: 0 120px;
+  }
 }
 .trailer_frame {
   border: 2px solid #979797;

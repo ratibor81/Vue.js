@@ -19,11 +19,13 @@
     <button
       type="button"
       class="remove-button"
-      @click.stop.prevent="removeFromList(movie)"
+      @click.stop.prevent="removeCard(movie.id)"
     ><img src="../assets/delete.svg"></button>
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'WatchlistCard',
   props: {
@@ -34,9 +36,7 @@ export default {
     },
   },
   methods: {
-    removeFromList(movie) {
-      this.$store.dispatch('REMOVE_FROM_WATCHLIST', movie.id);
-    },
+    ...mapActions(['removeCard']),
     getInfo(movie) {
       this.$router.push(`movies/${movie.id}`);
     },

@@ -39,17 +39,11 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 import { getItemById } from '../helpers';
 
 export default {
   name: 'MovieList',
-  props: {
-    movies: {
-      type: Array,
-      required: false,
-      default: null,
-    },
-  },
   data() {
     return {
       snackbar: false,
@@ -60,23 +54,22 @@ export default {
     };
   },
   computed: {
-    watchlist() {
-      return this.$store.getters.watchlist;
-    },
-    user() {
-      return this.$store.getters.user;
-    },
+    ...mapState(['movies', 'watchlist', 'user']),
+  },
+  beforeDestroy() {
+    this.reset();
   },
   methods: {
+    ...mapActions(['reset', 'addCard', 'removeCard']),
     getInfo(movie) {
       this.$router.push(`movies/${movie.id}`);
     },
     watchlistHandler(movie) {
       if (getItemById(this.watchlist, movie.id)) {
-        this.$store.dispatch('REMOVE_FROM_WATCHLIST', movie.id);
+        this.removeCard(movie.id);
       } else {
         this.snackbar = true;
-        this.$store.dispatch('ADD_TO_WATCHLIST', movie);
+        this.addCard(movie);
       }
     },
     favHandler(movie) {
@@ -88,7 +81,7 @@ export default {
 </script>
 <style lang="scss">
 .List {
-  text-align: left;
+  // text-align: left;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -97,7 +90,7 @@ export default {
 }
 .Card {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.22);
-  width: 13%;
+  width: 45%;
   border-radius: 10px;
   margin-bottom: 15px;
   overflow: hidden;
@@ -105,6 +98,9 @@ export default {
   position: relative;
   transition: 0.3s ease-out;
   animation: open-card 0.3s;
+  @media (min-width: 768px) {
+    width: 13%;
+  }
   &:hover {
     transform: scale(1.05);
     transition: 0.3s ease-in-out;
