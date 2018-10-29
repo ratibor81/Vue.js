@@ -38,7 +38,7 @@ export default {
     ...mapState(['movies', 'searchQuery', 'error']),
     ...mapGetters(['title']),
   },
-  // watch нужен для повторного поиска, если юзер на странице search
+  // watch нужен для повторного поиска, если юзер находится на SearchPage
   watch: {
     title() {
       this.reset();

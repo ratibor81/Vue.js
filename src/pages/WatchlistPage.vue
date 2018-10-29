@@ -15,7 +15,6 @@
         class="Ul"
         tag="ul"
       >
-        <!-- <ul class="Ul"> -->
         <li
           v-for="(movie) in watchlist"
           :key="movie.id"
@@ -23,7 +22,6 @@
         >
           <watchlist-card :movie="movie" />
         </li>
-        <!-- </ul> -->
       </transition-group>
 
     </div>
