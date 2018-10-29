@@ -13,7 +13,7 @@ export default {
   name: 'Auth',
   mounted() {
     const uiConfig = {
-      signInSuccessUrl: '/',
+      // signInSuccessUrl: '/',
       signInFlow: 'popup',
       credentialHelper: firebaseui.auth.CredentialHelper.NONE,
       signInOptions: [

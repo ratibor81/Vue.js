@@ -8,6 +8,7 @@ import App from './components/App.vue';
 import router from './router';
 import store from './Store';
 import config from './firebase/firebaseConfig';
+import 'firebaseui/dist/firebaseui.css';
 
 Vue.use(Vuetify);
 Vue.use(infiniteScroll);

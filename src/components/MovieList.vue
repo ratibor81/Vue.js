@@ -81,7 +81,6 @@ export default {
 </script>
 <style lang="scss">
 .List {
-  // text-align: left;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
